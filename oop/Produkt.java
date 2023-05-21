@@ -6,14 +6,23 @@ public class Produkt {
     private double preis;
     private String name;
     private int mengenbestand;
+    private int lieferzeit;
+    private String technischeDaten;
+    private String kategorie;
+    private String wirdOftGekauftMit;
+
 
     // Konstruktor
-    public Produkt(int seriennummer, int jahrgang, double preis, String name, int mengenbestand) {
+    public Produkt() {
         this.seriennummer = seriennummer;
         this.jahrgang = jahrgang;
         this.preis = preis;
         this.name = name;
         this.mengenbestand = mengenbestand;
+        this.lieferzeit = lieferzeit;
+        this.technischeDaten = technischeDaten;
+        this.kategorie = kategorie;
+        this.wirdOftGekauftMit = wirdOftGekauftMit;
     }
 
     // Getter und Setter für Seriennummer
@@ -59,5 +68,37 @@ public class Produkt {
 
     public void setMengenbestand(int mengenbestand) {
         this.mengenbestand = mengenbestand;
+    }
+
+    //Getter und Setter Lieferzeit
+    public int getLieferzeit() {
+        return lieferzeit;
+    }
+    public void setLieferzeit(int lieferzeit) {
+        this.lieferzeit = lieferzeit;
+    }
+
+    //Getter und Setter Techn. Daten
+    public String getTechnischeDaten() {
+        return technischeDaten;
+    }
+    public void setTechnischeDaten(String name) {
+        this.technischeDaten = technischeDaten;
+    }
+
+    //Getter und Setter Kategorie
+    public String getKategorie() {
+        return kategorie;
+    }
+    public void setKategorie(String kategorie) {
+        this.kategorie = kategorie;
+    }
+
+    //Getter und Setter "Wird gekauft mit"
+    public String getWirdOftGekauftMit() {
+        return wirdOftGekauftMit;
+    }
+    public void setWirdOftGekauftMit(String wirdOftGekauftMit) {
+        this.wirdOftGekauftMit = wirdOftGekauftMit;
     }
 }
