@@ -1,8 +1,8 @@
 package oop;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class ProduktKatalog {
     private List<Produkt> produkte;
@@ -25,8 +25,6 @@ public class ProduktKatalog {
         System.out.println("Geben Sie den Preis ein:");
         double preis = scanner.nextDouble();
 
-        scanner.nextLine(); // Leere Zeile einlesen
-
         System.out.println("Geben Sie den Namen ein:");
         String name = scanner.nextLine();
 
@@ -36,27 +34,16 @@ public class ProduktKatalog {
         System.out.println("Geben Sie die Lieferzeit ein:");
         int lieferzeit = scanner.nextInt();
 
-        scanner.nextLine(); // Leere Zeile einlesen
-
         System.out.println("Geben Sie die technischen Daten ein:");
         String technischeDaten = scanner.nextLine();
 
         System.out.println("Geben Sie die Kategorie ein:");
         String kategorie = scanner.nextLine();
 
-        // Wird oft gekauft mit-Produkte hinzufügen
-        List<Produkt> wirdOftGekauftMit = new ArrayList<>();
         System.out.println("Geben Sie Produkte ein, die oft mit diesem Produkt gekauft werden (Leer lassen, wenn keine):");
-        String produktName = scanner.nextLine();
-        while (!produktName.isEmpty()) {
-            // Möglichkeit eine Suchfunktion zu implementieren um bereits vorhandene Produkte hinzuzufügen (noch zu faul)
-            // if (produkt != null) {
-            //     wirdOftGekauftMit.add(produkt);
-            // }
-            produktName = scanner.nextLine();
-        }
+        String wirdOftGekauftMit = scanner.nextLine();
 
-        // Neues Produkt erstellen und dem Katalog hinzufügen
+        // Neues Produkt wird erstellt und dem Katalog hinzugefügt
         Produkt neuesProdukt = new Produkt();
         neuesProdukt.setSeriennummer(Integer.parseInt(seriennummer));
         neuesProdukt.setJahrgang(jahrgang);
@@ -66,7 +53,7 @@ public class ProduktKatalog {
         neuesProdukt.setLieferzeit(lieferzeit);
         neuesProdukt.setTechnischeDaten(technischeDaten);
         neuesProdukt.setKategorie(kategorie);
-        neuesProdukt.setWirdOftGekauftMit(wirdOftGekauftMit.toString());
+        neuesProdukt.setWirdOftGekauftMit(wirdOftGekauftMit);
 
         produkte.add(neuesProdukt);
 
@@ -78,7 +65,6 @@ public class ProduktKatalog {
 
         scanner.close();
 
-    anzeigenProduktKatalog();
     }
 
     public void anzeigenProduktKatalog() {
@@ -101,8 +87,6 @@ public class ProduktKatalog {
             System.out.println("------------------------------");
         }
     }
-
-    // ...
 }
 
 

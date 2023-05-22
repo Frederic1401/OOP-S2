@@ -11,6 +11,8 @@ public class Produkt {
     private String kategorie;
     private String wirdOftGekauftMit;
 
+    private boolean imAngebot;
+
 
     // Konstruktor
     public Produkt() {
@@ -23,6 +25,7 @@ public class Produkt {
         this.technischeDaten = technischeDaten;
         this.kategorie = kategorie;
         this.wirdOftGekauftMit = wirdOftGekauftMit;
+        this.imAngebot = imAngebot;
     }
 
     // Getter und Setter für Seriennummer
@@ -94,11 +97,15 @@ public class Produkt {
         this.kategorie = kategorie;
     }
 
-    //Getter und Setter "Wird gekauft mit"
+    //Getter und Setter "Wird oft gekauft mit..."
     public String getWirdOftGekauftMit() {
         return wirdOftGekauftMit;
     }
     public void setWirdOftGekauftMit(String wirdOftGekauftMit) {
         this.wirdOftGekauftMit = wirdOftGekauftMit;
     }
+
+    //Getter und Setter "Im Angebot?"
+    public boolean isImAngebot() {return imAngebot;}
+    public void setImAngebot(boolean imAngebot) {this.imAngebot = imAngebot;}
 }
