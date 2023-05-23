@@ -28,6 +28,8 @@ public class Produkt {
         this.imAngebot = imAngebot;
     }
 
+
+
     // Getter und Setter für Seriennummer
     public int getSeriennummer() {
         return seriennummer;

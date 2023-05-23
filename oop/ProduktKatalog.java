@@ -1,11 +1,16 @@
 package oop;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProduktKatalog {
     private List<Produkt> produktKatalog;
+
+    public List<Produkt> getProduktKatalog() {
+        return produktKatalog;
+    }
 
     public ProduktKatalog() {
         produktKatalog = new ArrayList<>();
@@ -120,6 +125,7 @@ public class ProduktKatalog {
             System.out.println("Der Produktkatalog ist leer.");
         } else {
             System.out.println("Produktkatalog:");
+
             for (Produkt produkt : produktKatalog) {
                 System.out.println("------------------------------");
                 System.out.println("Seriennummer: " + produkt.getSeriennummer());
@@ -130,13 +136,15 @@ public class ProduktKatalog {
                 System.out.println("Lieferzeit: " + produkt.getLieferzeit());
                 System.out.println("Technische Daten: " + produkt.getTechnischeDaten());
                 System.out.println("Kategorie: " + produkt.getKategorie());
-                System.out.println("Wird oft gekauft mit: " + (produkt.getWirdOftGekauftMit().isEmpty() ? produkt.getWirdOftGekauftMit() : " - "));
-                System.out.println("Im Angebot:" + (produkt.isImAngebot() ? "Ja" : "Nein"));
+                System.out.println("Wird oft gekauft mit: " + (produkt.getWirdOftGekauftMit().isEmpty() ? "-" : produkt.getWirdOftGekauftMit()));
+                System.out.println("Im Angebot: " + (produkt.isImAngebot() ? "Ja" : "Nein"));
+
             }
             System.out.println("------------------------------");
         }
     }
 }
+
 
 
 
