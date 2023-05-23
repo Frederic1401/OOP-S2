@@ -5,19 +5,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ProduktKatalog {
-    private List<Produkt> produkte;
+    private List<Produkt> produktKatalog;
 
     public ProduktKatalog() {
-        produkte = new ArrayList<>();
+        produktKatalog = new ArrayList<>();
     }
 
+    /**
+     *  Erstellt über die Konsoleneingabe ein neues Objekt der Klasse Produkt
+     *
+     *  <p>Vorbedingungen: -
+     */
     public void neuesProduktErstellen() {
         Scanner scanner = new Scanner(System.in);
         String weiteresProdukt = "Ja";
         while (weiteresProdukt.equalsIgnoreCase("Ja")) {
 
         System.out.println("Geben Sie die Seriennummer ein:");
-        String seriennummer = scanner.nextLine();
+        int seriennummer = scanner.nextInt();
 
         System.out.println("Geben Sie den Jahrgang ein:");
         int jahrgang = scanner.nextInt();
@@ -47,36 +52,35 @@ public class ProduktKatalog {
         System.out.println("Geben Sie Produkte ein, die oft mit diesem Produkt gekauft werden (Leer lassen, wenn keine):");
         String wirdOftGekauftMit = scanner.nextLine();
 
-        // Neues Produkt wird erstellt und dem Katalog hinzugefügt
-        Produkt neuesProdukt = new Produkt();
-        neuesProdukt.setSeriennummer(Integer.parseInt(seriennummer));
-        neuesProdukt.setJahrgang(jahrgang);
-        neuesProdukt.setPreis(preis);
-        neuesProdukt.setName(name);
-        neuesProdukt.setMengenbestand(mengenbestand);
-        neuesProdukt.setLieferzeit(lieferzeit);
-        neuesProdukt.setTechnischeDaten(technischeDaten);
-        neuesProdukt.setKategorie(kategorie);
-        neuesProdukt.setWirdOftGekauftMit(wirdOftGekauftMit);
+        System.out.println("Geben Sie an, ob diese Produkt im Angebot ist (true/false)");
+        boolean imAngebot = scanner.nextBoolean();
 
-        produkte.add(neuesProdukt);
+        scanner.nextLine(); // Leere Zeile einlesen
+
+        // Neues Produkt wird erstellt und dem Katalog hinzugefügt
+        Produkt neuesProdukt = new Produkt(seriennummer, jahrgang, preis, name, mengenbestand,
+                lieferzeit, technischeDaten, kategorie, wirdOftGekauftMit, imAngebot);
+        produktKatalog.add(neuesProdukt);
 
         System.out.println("Das Produkt wurde erfolgreich erstellt und dem Katalog hinzugefügt.");
 
         System.out.println("Möchten Sie ein weiteres Produkt erstellen? (Ja/Nein)");
         weiteresProdukt = scanner.nextLine();
-    } while (weiteresProdukt.equalsIgnoreCase("Ja"));
-
+    }
         scanner.close();
-
     }
 
+    /**
+        Listet jede Eigenschaft der Produkte in ProduktListe auf
+        <p>Vorbedingungen: Die ArrayList produkte ist nicht leer
+        @throws IllegalStateException Der Produktkatalog ist leer
+     */
     public void anzeigenProduktKatalog() {
-        if (produkte.isEmpty()) {
+        if (produktKatalog.isEmpty()) {
             System.out.println("Der Produktkatalog ist leer.");
         } else {
             System.out.println("Produktkatalog:");
-            for (Produkt produkt : produkte) {
+            for (Produkt produkt : produktKatalog) {
                 System.out.println("------------------------------");
                 System.out.println("Seriennummer: " + produkt.getSeriennummer());
                 System.out.println("Jahrgang: " + produkt.getJahrgang());
@@ -86,7 +90,8 @@ public class ProduktKatalog {
                 System.out.println("Lieferzeit: " + produkt.getLieferzeit());
                 System.out.println("Technische Daten: " + produkt.getTechnischeDaten());
                 System.out.println("Kategorie: " + produkt.getKategorie());
-                System.out.println("Wird oft gekauft mit: " + produkt.getWirdOftGekauftMit());
+                System.out.println("Wird oft gekauft mit: " + (produkt.getWirdOftGekauftMit().isEmpty() ? produkt.getWirdOftGekauftMit() : " - "));
+                System.out.println("Im Angebot:" + (produkt.isImAngebot() ? "Ja" : "Nein"));
             }
             System.out.println("------------------------------");
         }

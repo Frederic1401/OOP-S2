@@ -10,12 +10,12 @@ public class Produkt {
     private String technischeDaten;
     private String kategorie;
     private String wirdOftGekauftMit;
-
     private boolean imAngebot;
 
 
-    // Konstruktor
-    public Produkt() {
+    //Konstruktor zum manuellen Festlegen aller vorhanden Eigenschaften
+    public Produkt(int seriennummer, int jahrgang, double preis, String name, int mengenbestand,
+                   int lieferzeit, String technischeDaten, String kategorie, String wirdOftGekauftMit, boolean imAngebot){
         this.seriennummer = seriennummer;
         this.jahrgang = jahrgang;
         this.preis = preis;
