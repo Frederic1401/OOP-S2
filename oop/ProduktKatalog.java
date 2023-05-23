@@ -25,6 +25,8 @@ public class ProduktKatalog {
         System.out.println("Geben Sie den Preis ein:");
         double preis = scanner.nextDouble();
 
+        scanner.nextLine(); // Leere Zeile einlesen
+
         System.out.println("Geben Sie den Namen ein:");
         String name = scanner.nextLine();
 
@@ -33,6 +35,8 @@ public class ProduktKatalog {
 
         System.out.println("Geben Sie die Lieferzeit ein:");
         int lieferzeit = scanner.nextInt();
+
+        scanner.nextLine(); // Leere Zeile einlesen
 
         System.out.println("Geben Sie die technischen Daten ein:");
         String technischeDaten = scanner.nextLine();
