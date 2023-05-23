@@ -62,46 +62,50 @@ public class ProduktKatalog {
 
         System.out.println("Das Produkt wurde erfolgreich erstellt und dem Katalog hinzugefügt.");
 
-        scanner.close();
+
     }
 
     public void bestehendesProduktBearbeiten(){
         Scanner scanner = new Scanner(System.in);
 
-        for (int i=0; i<produktKatalog.size(); i++){
-            System.out.println(i+". "+produktKatalog.get(i).getSeriennummer()+" | "+produktKatalog.get(i).getName());
+        for (int i = 0; i < produktKatalog.size(); i++) {
+            System.out.println(i + ". " + produktKatalog.get(i).getSeriennummer() + " | " + produktKatalog.get(i).getName());
         }
-        System.out.println("Bitte Nummer eingeben von 1 bis "+produktKatalog.size()+"!");
+        System.out.println("Bitte Nummer eingeben von 1 bis " + produktKatalog.size() + "!");
         int index = scanner.nextInt();
-        Produkt aktuellesProdukt = produktKatalog.get(index-1);
+        scanner.nextLine();
+
+        Produkt aktuellesProdukt = produktKatalog.get(index - 1);
 
         System.out.println("Welche Eigenschaft soll bearbeitet werden?");
         System.out.println("Eigenschaften: Seriennummer, Jahrgang, Preis, Name, Mengenbestand, Lieferzeit, Technische Daten, Kategorie, Wird oft gekauft mit?, Im Angebot?");
         System.out.println("Eingabe Format: [Eigenschaft], [Neue Eingabe]");
-        String eigenschaft = scanner.nextLine().split(", ")[0];
-        String neueEingabe = scanner.nextLine().split(", ")[1];
+        String eingabe = scanner.nextLine();
+        String[] eingabeTeile = eingabe.split(", ");
+        String eigenschaft = eingabeTeile[0];
+        String neueEingabe = eingabeTeile[1];
 
-        if(eigenschaft.equalsIgnoreCase("Seriennummer")){
+        if (eigenschaft.equalsIgnoreCase("Seriennummer")) {
             aktuellesProdukt.setSeriennummer(Integer.parseInt(neueEingabe));
-        }else if(eigenschaft.equalsIgnoreCase("Jahrgang")){
+        } else if (eigenschaft.equalsIgnoreCase("Jahrgang")) {
             aktuellesProdukt.setJahrgang(Integer.parseInt(neueEingabe));
-        }else if(eigenschaft.equalsIgnoreCase("Preis")){
+        } else if (eigenschaft.equalsIgnoreCase("Preis")) {
             aktuellesProdukt.setPreis(Integer.parseInt(neueEingabe));
-        }else if(eigenschaft.equalsIgnoreCase("Name")){
+        } else if (eigenschaft.equalsIgnoreCase("Name")) {
             aktuellesProdukt.setName(neueEingabe);
-        }else if(eigenschaft.equalsIgnoreCase("Mengenbestand")) {
+        } else if (eigenschaft.equalsIgnoreCase("Mengenbestand")) {
             aktuellesProdukt.setMengenbestand(Integer.parseInt(neueEingabe));
-        }else if(eigenschaft.equalsIgnoreCase("Lieferzeit")) {
+        } else if (eigenschaft.equalsIgnoreCase("Lieferzeit")) {
             aktuellesProdukt.setLieferzeit(Integer.parseInt(neueEingabe));
-        }else if(eigenschaft.equalsIgnoreCase("Technische Daten")) {
+        } else if (eigenschaft.equalsIgnoreCase("Technische Daten")) {
             aktuellesProdukt.setTechnischeDaten(neueEingabe);
-        }else if(eigenschaft.equalsIgnoreCase("Kategorie")) {
+        } else if (eigenschaft.equalsIgnoreCase("Kategorie")) {
             aktuellesProdukt.setKategorie(neueEingabe);
-        }else if(eigenschaft.equalsIgnoreCase("Wird oft gekauft mit?")) {
+        } else if (eigenschaft.equalsIgnoreCase("Wird oft gekauft mit?")) {
             aktuellesProdukt.setWirdOftGekauftMit(neueEingabe);
-        }else if(eigenschaft.equalsIgnoreCase("Im Angebot?")) {
+        } else if (eigenschaft.equalsIgnoreCase("Im Angebot?")) {
             aktuellesProdukt.setImAngebot(Boolean.parseBoolean(neueEingabe));
-        }else{
+        } else {
             System.out.println("Falsche Eingabe! Entweder Eigenschaft oder neue Eingabe fehlerhaft");
         }
     }

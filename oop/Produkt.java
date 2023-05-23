@@ -85,7 +85,7 @@ public class Produkt {
     public String getTechnischeDaten() {
         return technischeDaten;
     }
-    public void setTechnischeDaten(String name) {
+    public void setTechnischeDaten(String technischeDaten) {
         this.technischeDaten = technischeDaten;
     }
 
