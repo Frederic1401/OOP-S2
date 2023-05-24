@@ -1,4 +1,7 @@
-package oop;
+package oop.tests;
+
+import oop.Produkt;
+import oop.ProduktKatalog;
 
 public class ProduktKatalogTest {
 

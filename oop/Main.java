@@ -35,11 +35,11 @@ public class Main {
                         beenden = true;
                         break;
                     default:
-                        System.out.println("Ungültige Eingabe! Bitte eine Nummer von 1 bis 4 eingeben.");
+                        System.out.println("Ungültige Eingabe! Bitte eine Nummer von 1 bis 4 eingeben. \n");
                         break;
                 }
             } else {
-                System.out.println("Ungültige Eingabe! Bitte eine Nummer eingeben.");
+                System.out.println("Ungültige Eingabe! Bitte eine Nummer eingeben. \n");
                 scanner.nextLine();
             }
         }

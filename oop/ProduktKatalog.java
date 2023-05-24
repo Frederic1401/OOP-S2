@@ -18,8 +18,6 @@ public class ProduktKatalog {
 
     /**
      *  Erstellt über die Konsoleneingabe ein neues Objekt der Klasse Produkt
-     *
-     *  <p>Vorbedingungen: -
      */
     public void neuesProduktErstellen() {
         Scanner scanner = new Scanner(System.in);
@@ -65,16 +63,20 @@ public class ProduktKatalog {
                 lieferzeit, technischeDaten, kategorie, wirdOftGekauftMit, imAngebot);
         produktKatalog.add(neuesProdukt);
 
-        System.out.println("Das Produkt wurde erfolgreich erstellt und dem Katalog hinzugefügt.");
+        System.out.println("Das Produkt wurde erfolgreich erstellt und dem Katalog hinzugefügt. \n");
 
 
     }
 
+    /**
+     *  Bearbeitet über die Konsoleneingabe ein bereits vorhandenes Objekt der Klasse Produkt
+     */
     public void bestehendesProduktBearbeiten(){
         Scanner scanner = new Scanner(System.in);
 
+        //Listet in der Konsole alle vorhanden Produkte auf
         for (int i = 0; i < produktKatalog.size(); i++) {
-            System.out.println(i + ". " + produktKatalog.get(i).getSeriennummer() + " | " + produktKatalog.get(i).getName());
+            System.out.println((i+1) + ". " + produktKatalog.get(i).getSeriennummer() + " | " + produktKatalog.get(i).getName());
         }
         System.out.println("Bitte Nummer eingeben von 1 bis " + produktKatalog.size() + "!");
         int index = scanner.nextInt();
@@ -113,12 +115,12 @@ public class ProduktKatalog {
         } else {
             System.out.println("Falsche Eingabe! Entweder Eigenschaft oder neue Eingabe fehlerhaft");
         }
+        System.out.println("Die Eigenschaft "+eigenschaft+" des Produktes mit der Seriennummer "+aktuellesProdukt.getSeriennummer()+" wurd zu "+neueEingabe+" verändert");
     }
 
     /**
-        Listet jede Eigenschaft der Produkte in ProduktListe auf
-        <p>Vorbedingungen: Die ArrayList produkte ist nicht leer
-        @throws IllegalStateException Der Produktkatalog ist leer
+     *  Listet jede Eigenschaft der Produkte in ProduktListe auf
+     *  @throws IllegalStateException Der Produktkatalog ist leer
      */
     public void anzeigenProduktKatalog() {
         if (produktKatalog.isEmpty()) {
@@ -140,7 +142,7 @@ public class ProduktKatalog {
                 System.out.println("Im Angebot: " + (produkt.isImAngebot() ? "Ja" : "Nein"));
 
             }
-            System.out.println("------------------------------");
+            System.out.println("------------------------------\n");
         }
     }
 }
