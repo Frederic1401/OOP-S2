@@ -115,7 +115,7 @@ public class ProduktKatalog {
         } else {
             System.out.println("Falsche Eingabe! Entweder Eigenschaft oder neue Eingabe fehlerhaft");
         }
-        System.out.println("Die Eigenschaft "+eigenschaft+" des Produktes mit der Seriennummer "+aktuellesProdukt.getSeriennummer()+" wurd zu "+neueEingabe+" verändert");
+        System.out.println("Die Eigenschaft "+eigenschaft+" des Produktes mit der Seriennummer "+aktuellesProdukt.getSeriennummer()+" wurde zu "+neueEingabe+" verändert");
     }
 
     /**
