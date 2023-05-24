@@ -39,7 +39,7 @@ public class Main {
                         break;
                 }
             } else {
-                System.out.println("Ungültige Eingabe! Bitte eine Nummer eingeben. \n");
+                System.out.println("Ungültige Eingabe! Bitte eine Nummer von 1 bis 4 eingeben. \n");
                 scanner.nextLine();
             }
         }
