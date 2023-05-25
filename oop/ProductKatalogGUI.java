@@ -44,31 +44,46 @@ public class ProductKatalogGUI extends JFrame {
     }
 
     private void addProduct() {
-        // Implementiere die Logik für das Hinzufügen eines Produkts hier
+      
           //Seriennummer eingeben 
           String seriennummer = JOptionPane.showInputDialog(this, "Seriennummer eingeben:");
           if (seriennummer != null && !seriennummer.isEmpty()) {
-              productListModel.addElement(seriennummer);
+              productListModel.addElement("Seriennummer: " + seriennummer);
+          }
+          if (seriennummer == null){
+            productListModel.addElement("-");
           }
           //Produktnamen eingeben
           String produktname = JOptionPane.showInputDialog(this, "Produktnamen eingeben:");
           if (produktname != null && !produktname.isEmpty()) {
-              productListModel.addElement(produktname);
+              productListModel.addElement("Produktname: " + produktname);
+          }
+          if (produktname.isEmpty()){
+            productListModel.addElement("Produktname: -");
           }
           //Preis eingeben
-          String produktpreis = JOptionPane.showInputDialog(this, "Produktpreis eingeben:");
+          String produktpreis = JOptionPane.showInputDialog(this, "Produktpreis in Euro eingeben:");
           if (produktpreis != null && !produktpreis.isEmpty()) {
-              productListModel.addElement(produktpreis);
+              productListModel.addElement("Preis: " + produktpreis + "€");
+          }
+          if (produktpreis.isEmpty()){
+            productListModel.addElement("Preis: -");
           }
           //Kategorie
           String produktkategorie = JOptionPane.showInputDialog(this, "Produktkategorie eingeben:");
           if (produktkategorie != null && !produktkategorie.isEmpty()) {
-              productListModel.addElement(produktkategorie);
+              productListModel.addElement("Kategorie: " + produktkategorie);
+          }
+          if (produktkategorie.isEmpty()){
+            productListModel.addElement("Kategorie: -");
           }
          //Lieferzeit in Tagen eingeben
-      String produktlieferzeit = JOptionPane.showInputDialog(this, "Lieferzeit eingeben:");
+      String produktlieferzeit = JOptionPane.showInputDialog(this, "Lieferzeit in Tagen eingeben:");
       if (produktlieferzeit != null && !produktlieferzeit.isEmpty()) {
-          productListModel.addElement(produktlieferzeit);
+          productListModel.addElement("Lieferzeit: " + produktlieferzeit + " Tage");
+      }
+      if (produktlieferzeit.isEmpty()){
+        productListModel.addElement("Lieferzeit: -");
       }
     }
 
