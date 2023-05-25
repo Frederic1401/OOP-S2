@@ -34,6 +34,10 @@ public class ProductKatalogGUI extends JFrame {
         //prodbearbButton.addActionListener(e -> showProducts());
         buttonPanel.add(prodzeigButton);
 
+        JButton prodloschButton = new JButton("Produkte löschen");
+        //prodbearbButton.addActionListener(e -> showProducts());
+        buttonPanel.add(prodloschButton);
+
 
 
         add(buttonPanel, BorderLayout.WEST);
