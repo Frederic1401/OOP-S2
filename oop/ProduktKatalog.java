@@ -28,7 +28,7 @@ public class ProduktKatalog {
         System.out.println("Geben Sie den Jahrgang ein:");
         int jahrgang = scanner.nextInt();
 
-        System.out.println("Geben Sie den Preis ein:");
+        System.out.println("Geben Sie den Preis in Euro ein:");
         double preis = scanner.nextDouble();
 
         scanner.nextLine(); // Leere Zeile einlesen
@@ -39,7 +39,7 @@ public class ProduktKatalog {
         System.out.println("Geben Sie den Mengenbestand ein:");
         int mengenbestand = scanner.nextInt();
 
-        System.out.println("Geben Sie die Lieferzeit ein:");
+        System.out.println("Geben Sie die Lieferzeit in Tagen ein:");
         int lieferzeit = scanner.nextInt();
 
         scanner.nextLine(); // Leere Zeile einlesen
