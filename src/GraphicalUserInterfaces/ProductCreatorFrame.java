@@ -112,7 +112,7 @@ public class ProductCreatorFrame extends JFrame{
 
         int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
         jahrgangComboBox.addItem("-bitte Angeben-");
-        for (int year = 1900; year <= currentYear; year++) {
+        for (int year = currentYear; year >= 1900; year--) {
             jahrgangComboBox.addItem(year);
         }
 
