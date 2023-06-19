@@ -5,20 +5,19 @@ import src.Products.Produkt;
 import src.Products.Verwaltungsliste;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class ProductCreatorFrame extends JFrame{
-
-    ImageIcon imageSpuele = new ImageIcon("einbauspuele01.jpg");
 
     private JPanel mainPanel;
     private JLabel kategorieLabel;
     private JComboBox kategorieComboBox;
     private JLabel nameLabel;
-    private JPanel bildPanel;
     private JTextField nameTextField;
     private JLabel seriennummerLabel;
     private JTextField seriennummerTextField;
@@ -38,8 +37,8 @@ public class ProductCreatorFrame extends JFrame{
     private JSpinner lieferzeitSpinner;
     private JButton resetButton;
     private JCheckBox imAngebotCheckBox;
+    private JPanel bildPanel;
     private JLabel bildLabel;
-    private JButton bildButton;
 
     public ProductCreatorFrame() {
         //Attribute des JFrames werden erstellt
@@ -53,6 +52,7 @@ public class ProductCreatorFrame extends JFrame{
 
         speichernButton.addActionListener(saveButtonActionListener());
         resetButton.addActionListener(resetButtonActionListener());
+        bildHochladenButton.addActionListener(imageButtonActionListener());
         kategorieComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +61,7 @@ public class ProductCreatorFrame extends JFrame{
             }
         });
     }
+
 
     /**
      * Dieser Konstruktor wird verwendet, um ein JFrame zu erstellen, welches dazu dient ein bestehendes Objekt der Klasse
@@ -99,6 +100,7 @@ public class ProductCreatorFrame extends JFrame{
 
         speichernButton.addActionListener(saveButtonActionListener());
         resetButton.addActionListener(resetButtonActionListener());
+        bildHochladenButton.addActionListener(imageButtonActionListener());
     }
 
     private void loadCustomContents(){
@@ -201,8 +203,21 @@ public class ProductCreatorFrame extends JFrame{
         };
     }
 
-    private void bildButtonActionPerformed(java.awt.event.ActionEvent evt){
-        bildLabel.setText("");
-        bildLabel.setIcon(imageSpuele);
+    private ActionListener imageButtonActionListener(){
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION){
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String filePath = selectedFile.getAbsolutePath();
+                    
+                    ImageIcon productImage = new ImageIcon(filePath);
+                    bildLabel.setIcon(productImage);
+                }
+
+            }
+        };
     }
 }
