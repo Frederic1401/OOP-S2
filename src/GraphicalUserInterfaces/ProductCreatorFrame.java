@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 
 public class ProductCreatorFrame extends JFrame{
 
+    ImageIcon imageSpuele = new ImageIcon("einbauspuele01.jpg");
+
     private JPanel mainPanel;
     private JLabel kategorieLabel;
     private JComboBox kategorieComboBox;
@@ -36,6 +38,8 @@ public class ProductCreatorFrame extends JFrame{
     private JSpinner lieferzeitSpinner;
     private JButton resetButton;
     private JCheckBox imAngebotCheckBox;
+    private JLabel bildLabel;
+    private JButton bildButton;
 
     public ProductCreatorFrame() {
         //Attribute des JFrames werden erstellt
@@ -195,5 +199,10 @@ public class ProductCreatorFrame extends JFrame{
                 imAngebotCheckBox.setSelected(false);
             }
         };
+    }
+
+    private void bildButtonActionPerformed(java.awt.event.ActionEvent evt){
+        bildLabel.setText("");
+        bildLabel.setIcon(imageSpuele);
     }
 }
