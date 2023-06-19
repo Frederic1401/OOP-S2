@@ -20,7 +20,7 @@ public class ProductTemplatePane extends Component {
         entfernenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Produkt currentProdukt = Main.getProduktkatalog().getProduktBySeriennummer(Integer.parseInt(produktLabel.getText().split("; ")[0]));
+                Produkt currentProdukt = Main.getProduktkatalog().sucheProduktNachSeriennummer(produktLabel.getText().split("; ")[0]);
                 Main.getProduktkatalog().removeProdukt(currentProdukt);
                 Main.getMainFrame().updateContents();
                 JOptionPane.showMessageDialog(null,
@@ -33,7 +33,7 @@ public class ProductTemplatePane extends Component {
         bearbeitenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Produkt currentProdukt = Main.getProduktkatalog().getProduktBySeriennummer(Integer.parseInt(produktLabel.getText().split("; ")[0]));
+                Produkt currentProdukt = Main.getProduktkatalog().sucheProduktNachSeriennummer(produktLabel.getText().split("; ")[0]);
                 new ProductCreatorFrame(Main.getProduktkatalog().transformKategorieIntoInteger(currentProdukt.getKategorie()),
                         currentProdukt.getName(), currentProdukt.getBeschreibung(), currentProdukt.getKaufempfehlung(),
                         currentProdukt.getJahrgang(), currentProdukt.getLieferzeit(), currentProdukt.getMengenbestand(),

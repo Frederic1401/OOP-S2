@@ -11,6 +11,8 @@ import src.Products.Produktkatalog;
  * @version: 21.05.2023
  * Historie: 21.05.2023, Erstellung der Klasse
  */
+
+/**
 public class Testklasse_Phase1 {
 
     static Produktkatalog produktkatalog;
@@ -67,3 +69,4 @@ public class Testklasse_Phase1 {
         System.out.println("Der Testlauf der 1. Phase wird beendet...");
     }
 }
+*/

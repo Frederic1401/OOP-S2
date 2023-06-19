@@ -11,40 +11,7 @@ import java.util.List;
  * @version: 21.05.2023
  * Historie: 21.05.2023, Erstellung der Klasse
  */
-public class Produktkatalog {
-
-    private final ArrayList<Produkt> produktListe; //Liste, zu der alle Produkte, die im Katalog existieren sollen, hinzugefügt werden.
-
-    /**
-     * Initialisiert die Liste aller Produkte
-     */
-    public Produktkatalog() {
-        produktListe = new ArrayList<>();
-    }
-
-    /**
-     * @param produkt Das Produkt, das zum Katalog hinzugefügt werden soll.
-     */
-    public void addProdukt(Produkt produkt){produktListe.add(produkt);}
-
-    /**
-     * @param produkt Das Produkt, das aus dem Katalog entfernt werden soll.
-     */
-    public void removeProdukt(Produkt produkt){produktListe.remove(produkt);}
-
-    /**
-     * @param suche Das gesuchte Stichwort oder Phrase.
-     * @return Gibt eine Liste aller Produkte zurück, auf die die gesuchte Eingabe hinsichtlich ihres Namens oder Beschreibung zutrifft.
-     */
-    public List<Produkt> suchProdukte(String suche){
-        List<Produkt> fund = new ArrayList<>();
-        for(Produkt produkte : produktListe){
-            if(produkte.getName().equalsIgnoreCase(suche) || produkte.getBeschreibung().contains(suche)){
-                fund.add(produkte);
-            }
-        }
-        return fund;
-    }
+public class Produktkatalog extends Verwaltungsliste<Produkt>{
 
     /**
      * @return Den Inhalt des Produktkataloges. Dabei wird jedes Produkt in einer neuen Zeile ausgegeben.
@@ -52,8 +19,8 @@ public class Produktkatalog {
     public String toString() {
         String output = "";
         output = "Produktkatalog: \n";
-        for(int i=0; i<produktListe.size(); i++){
-            output = output + produktListe.get(i).toString() + (i==produktListe.size()-1 ? null : "\n");
+        for(int i=0; i<liste.size(); i++){
+            output = output + liste.get(i).toString() + (i==liste.size()-1 ? null : "\n");
         }
         return output;
     }
@@ -79,44 +46,5 @@ public class Produktkatalog {
             return 6;
         }
         return 0;
-    }
-
-    /**
-     * Gibt das Produkt mit der angegebenen Seriennummer zurück.
-     *
-     * @param seriennummer Die Seriennummer des gesuchten Produkts
-     * @return Das Produkt mit der angegebenen Seriennummer oder null, wenn kein Produkt gefunden wurde
-     */
-    public Produkt getProduktBySeriennummer(int seriennummer) {
-        for (Produkt produkte : produktListe) {
-            if (produkte.getSeriennummer() == seriennummer) {
-                return produkte;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gibt das Produkt mit dem angegebenen Namen zurück.
-     *
-     * @param name Der Name des gesuchten Produkts
-     * @return Das Produkt mit dem angegebenen Namen oder null, wenn kein Produkt gefunden wurde
-     */
-    public Produkt getProduktByName(String name) {
-        for (Produkt produkte : produktListe) {
-            if (produkte.getName().equalsIgnoreCase(name)) {
-                return produkte;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gibt die Liste aller Produkte zurück.
-     *
-     * @return Die Liste aller Produkte
-     */
-    public ArrayList<Produkt> getProduktListe() {
-        return produktListe;
     }
 }

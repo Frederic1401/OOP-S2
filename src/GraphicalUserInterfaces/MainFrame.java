@@ -50,11 +50,11 @@ public class MainFrame extends JFrame {
 
     public void updateContents(){
         contentPanel.removeAll();
-        ArrayList<Produkt> produktListe = Main.getProduktkatalog().getProduktListe();
+        ArrayList<Produkt> produktListe = Main.getProduktkatalog().getListe();
         for(Produkt produkte : produktListe){
             ProductTemplatePane productTemplatePane = new ProductTemplatePane();
             productTemplatePane.getProduktLabel().setText(produkte.getSeriennummer()+"; "+produkte.getName());
-            productTemplatePane.getMainPanel().setPreferredSize(new Dimension(350, 350));
+            productTemplatePane.getMainPanel().setPreferredSize(new Dimension(400, 350));
             contentPanel.add(productTemplatePane.getMainPanel());
         }
         revalidate();

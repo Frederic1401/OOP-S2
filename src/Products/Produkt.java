@@ -1,14 +1,20 @@
 package src.Products;
 
+import src.Main;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+
 /**
  * Package 'code.Products'
  *
  * Zweck: Fachklasse eines Produktes
- * @author: benjamin Adam
+ * @author: Benjamin Adam
  * @version: 21.05.2023
  * Historie: 21.05.2023, Erstellung der Fachklasse
+ *           01.06.2023, Generierung der Seriennummer & Vererbung
  */
-public class Produkt implements Comparable<Produkt>{
+public abstract class Produkt implements Comparable<Produkt>{
 
     private String kategorie;
     private String name;
@@ -17,7 +23,7 @@ public class Produkt implements Comparable<Produkt>{
     private int jahrgang;
     private int lieferzeit;
     private int mengenbestand;
-    private int seriennummer;
+    private String seriennummer;
     private double preis;
     private boolean imAngebot;
 
@@ -31,12 +37,11 @@ public class Produkt implements Comparable<Produkt>{
      * @param jahrgang         Das Jahr, in dem das Produkt hergestellt wurde
      * @param lieferzeit       Die Lieferzeit für das Produkt in Tagen
      * @param mengenbestand    Der aktuelle Bestand des Produkts
-     * @param seriennummer     Die Seriennummer des Produkts
      * @param preis            Der Preis des Produkts
      * @param imAngebot        Gibt an, ob das Produkt im Angebot ist
      */
-    public Produkt(String kategorie, String name, String beschreibung, Produkt kaufempfehlung,
-                   int jahrgang, int lieferzeit, int mengenbestand, int seriennummer, double preis, boolean imAngebot) {
+    public Produkt(String seriennummer, String kategorie, String name, String beschreibung, Produkt kaufempfehlung,
+                   int jahrgang, int lieferzeit, int mengenbestand, double preis, boolean imAngebot) {
 
         this.kategorie = kategorie;
         this.name = name;
@@ -48,8 +53,9 @@ public class Produkt implements Comparable<Produkt>{
         this.seriennummer = seriennummer;
         this.preis = preis;
         this.imAngebot = imAngebot;
-    }
 
+        Main.getProduktkatalog().addProdukt(this);
+    }
 
     /**
      * Eine Methode zum Erstellen eines Strings, der alle Attribute des Produktes beinhaltet.
@@ -89,6 +95,7 @@ public class Produkt implements Comparable<Produkt>{
         return 0;
     }
 
+    public String getSeriennummer() {return seriennummer;}
     public String getKategorie() {return kategorie;}
     public String getName() {return name;}
     public String getBeschreibung() {return beschreibung;}
@@ -96,10 +103,10 @@ public class Produkt implements Comparable<Produkt>{
     public int getJahrgang() {return jahrgang;}
     public int getLieferzeit() {return lieferzeit;}
     public int getMengenbestand() {return mengenbestand;}
-    public int getSeriennummer() {return seriennummer;}
     public double getPreis() {return preis;}
     public boolean isImAngebot() {return imAngebot;}
 
+    public void setSeriennummer(String seriennummer) {this.seriennummer = seriennummer;}
     public void setKategorie(String kategorie){this.kategorie = kategorie;}
     public void setName(String name) {this.name = name;}
     public void setBeschreibung(String beschreibung) {this.beschreibung = beschreibung;}
@@ -107,7 +114,7 @@ public class Produkt implements Comparable<Produkt>{
     public void setJahrgang(int jahrgang) {this.jahrgang = jahrgang;}
     public void setLieferzeit(int lieferzeit) {this.lieferzeit = lieferzeit;}
     public void setMengenbestand(int mengenbestand) {this.mengenbestand = mengenbestand;}
-    public void setSeriennummer(int seriennummer) {this.seriennummer = seriennummer;}
     public void setPreis(double preis) {this.preis = preis;}
     public void setImAngebot(boolean imAngebot) {this.imAngebot = imAngebot;}
 }
+
