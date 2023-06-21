@@ -2,7 +2,6 @@ package src;
 
 import src.GraphicalUserInterfaces.MainFrame;
 import src.Products.Listen.*;
-import src.Products.Produkt;
 import src.Products.Produktkatalog;
 import src.Products.Verwaltungsliste;
 

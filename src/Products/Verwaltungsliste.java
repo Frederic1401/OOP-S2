@@ -93,7 +93,9 @@ public class Verwaltungsliste<ProduktTyp extends Comparable> {
             }
         });
     }
+
 */
+
     protected void setIndex(int index){this.index = index;}
     public int getIndex(){return index;}
 

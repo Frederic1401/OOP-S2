@@ -1,5 +1,6 @@
 package src.GraphicalUserInterfaces;
 
+import src.Exceptions.InvalidProductAttributeException;
 import src.Main;
 import src.Products.Produkt;
 import src.Products.Verwaltungsliste;
@@ -13,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class ProductCreatorFrame extends JFrame{
-
     private JPanel mainPanel;
     private JLabel kategorieLabel;
     private JComboBox kategorieComboBox;
@@ -161,25 +161,28 @@ public class ProductCreatorFrame extends JFrame{
                     if(seriennummer == 0) seriennummerTextField.setText(null);
                     if(preis == 0) preisSpinner.setValue(0);
                 }else{
-                    jahrgang = (int) jahrgangComboBox.getSelectedItem();
+                    try {
+                        jahrgang = (int) jahrgangComboBox.getSelectedItem();
 
-                    if(kategorie.equalsIgnoreCase("Elektronik")){
-                        Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
-                    } else if (kategorie.equalsIgnoreCase("Küche")) {
-                        Main.getKuecheListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
-                    } else if (kategorie.equalsIgnoreCase("Badezimmer")) {
-                        Main.getBadezimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
-                    }else if (kategorie.equalsIgnoreCase("Schlafzimmer")) {
-                        Main.getSchlafzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
-                    }else if(kategorie.equalsIgnoreCase("Wohnzimmer")){
-                        Main.getWohnzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
-                    }else if(kategorie.equalsIgnoreCase("Sonstiges")){
-                        Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        if(kategorie.equalsIgnoreCase("Elektronik")){
+                            Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        } else if (kategorie.equalsIgnoreCase("Küche")) {
+                            Main.getKuecheListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        } else if (kategorie.equalsIgnoreCase("Badezimmer")) {
+                            Main.getBadezimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        }else if (kategorie.equalsIgnoreCase("Schlafzimmer")) {
+                            Main.getSchlafzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        }else if(kategorie.equalsIgnoreCase("Wohnzimmer")){
+                            Main.getWohnzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        }else if(kategorie.equalsIgnoreCase("Sonstiges")){
+                            Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        }
+                        Main.getMainFrame().updateContents();
+                        setVisible(false);
+                        dispose();
+                    } catch (InvalidProductAttributeException ex) {
+                        JOptionPane.showMessageDialog(null, "Fehler: "+ex, "Fehler", JOptionPane.ERROR_MESSAGE);;
                     }
-                    Main.getMainFrame().updateContents();
-                    setVisible(false);
-                    dispose();
-
                 }
             }
         };
