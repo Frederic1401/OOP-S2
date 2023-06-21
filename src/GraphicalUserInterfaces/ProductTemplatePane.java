@@ -36,6 +36,9 @@ public class ProductTemplatePane extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Produkt currentProdukt = Main.getProduktkatalog().sucheProduktNachSeriennummer(produktLabel.getText().split("; ")[0]);
+                System.out.println(currentProdukt.getName());
+                System.out.println((currentProdukt.getJahrgang()));
+                System.out.println(currentProdukt.getSeriennummer());
                 new ProductCreatorFrame(Main.getProduktkatalog().transformKategorieIntoInteger(currentProdukt.getKategorie()),
                         currentProdukt.getName(), currentProdukt.getBeschreibung(), currentProdukt.getKaufempfehlung(),
                         currentProdukt.getJahrgang(), currentProdukt.getLieferzeit(), currentProdukt.getMengenbestand(),

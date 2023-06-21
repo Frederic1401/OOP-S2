@@ -140,14 +140,14 @@ public class ProductCreatorFrame extends JFrame{
                 System.out.println(jahrgangComboBox.getSelectedItem().toString());
                 int     jahrgang,
                         lieferzeit = Integer.parseInt(lieferzeitSpinner.getValue().toString()),
-                        menegenbestand = Integer.parseInt(mengenbestandSpinner.getValue().toString()),
+                        mengenbestand = Integer.parseInt(mengenbestandSpinner.getValue().toString()),
                         seriennummer = Integer.parseInt(seriennummerTextField.getText());
                 double preis = Double.parseDouble(preisSpinner.getValue().toString());
                 boolean imAngebot = imAngebotCheckBox.isSelected();
 
                 //Neues Produkt wird erstellt und der Liste aller Produkte hinzugefügt
                 if(kategorieComboBox.getSelectedIndex() == 0 || name.isEmpty() || technischeDaten.isEmpty() || (kaufempfehlungComboBox.getSelectedIndex() == 0
-                        && Main.getProduktkatalog().getListe().size() != 0) || jahrgangComboBox.getSelectedIndex() == 0 || lieferzeit == 0 || menegenbestand == 0 || seriennummer == 0 || preis == 0){
+                        && Main.getProduktkatalog().getListe().size() != 0) || jahrgangComboBox.getSelectedIndex() == 0 || lieferzeit == 0 || mengenbestand == 0 || seriennummer == 0 || preis == 0){
                     JOptionPane.showMessageDialog(null, "Fehler! Eine der angegeben Daten ist fehlerhaft!", "Fehler", JOptionPane.ERROR_MESSAGE);
 
                     //Nun werden alle Eingabefelder wieder auf ihren Standard resetet
@@ -157,24 +157,24 @@ public class ProductCreatorFrame extends JFrame{
                     if(kaufempfehlungComboBox.getSelectedIndex() == 0 && Main.getProduktkatalog().getListe().size() != 0) kaufempfehlungComboBox.setSelectedIndex(0);
                     if(jahrgangComboBox.getSelectedIndex() == 0) jahrgangComboBox.setSelectedIndex(0);
                     if(lieferzeit == 0) lieferzeitSpinner.setValue(0);
-                    if(menegenbestand == 0) mengenbestandSpinner.setValue(0);
+                    if(mengenbestand == 0) mengenbestandSpinner.setValue(0);
                     if(seriennummer == 0) seriennummerTextField.setText(null);
                     if(preis == 0) preisSpinner.setValue(0);
                 }else{
                     jahrgang = (int) jahrgangComboBox.getSelectedItem();
 
                     if(kategorie.equalsIgnoreCase("Elektronik")){
-                        Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     } else if (kategorie.equalsIgnoreCase("Küche")) {
-                        Main.getKuecheListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        Main.getKuecheListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     } else if (kategorie.equalsIgnoreCase("Badezimmer")) {
-                        Main.getBadezimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        Main.getBadezimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     }else if (kategorie.equalsIgnoreCase("Schlafzimmer")) {
-                        Main.getSchlafzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        Main.getSchlafzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     }else if(kategorie.equalsIgnoreCase("Wohnzimmer")){
-                        Main.getWohnzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        Main.getWohnzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     }else if(kategorie.equalsIgnoreCase("Sonstiges")){
-                        Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, menegenbestand, preis, imAngebot);
+                        Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     }
                     Main.getMainFrame().updateContents();
                     setVisible(false);
