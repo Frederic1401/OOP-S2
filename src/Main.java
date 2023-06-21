@@ -2,7 +2,6 @@ package src;
 
 import src.GraphicalUserInterfaces.MainFrame;
 import src.Products.Listen.*;
-import src.Products.Produkt;
 import src.Products.Produktkatalog;
 import src.Products.Verwaltungsliste;
 
@@ -18,7 +17,6 @@ public class Main {
     private static SchlafzimmerListe schlafzimmerListe;
     private static WohnzimmerListe wohnzimmerListe;
     private static SonstigesListe sonstigesListe;
-
     private static MainFrame mainFrame;
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package src.GraphicalUserInterfaces;
 
+import src.Exceptions.InvalidProductAttributeException;
 import src.Main;
 import src.Products.Produkt;
 import src.Products.Verwaltungsliste;
@@ -13,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class ProductCreatorFrame extends JFrame{
-
     private JPanel mainPanel;
     private JLabel kategorieLabel;
     private JComboBox kategorieComboBox;
@@ -132,54 +132,48 @@ public class ProductCreatorFrame extends JFrame{
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Attribute des neuen Produkts werden hergeleitet
-                String  kategorie = kategorieComboBox.getSelectedItem().toString(),
-                        name = nameTextField.getText(),
-                        technischeDaten = technischeDatenTextArea.getText();
-                Produkt kaufempfehlung = Main.getProduktkatalog().sucheProduktNachNamen(kaufempfehlungComboBox.getSelectedItem().toString());
-                System.out.println(jahrgangComboBox.getSelectedItem().toString());
-                int     jahrgang,
-                        lieferzeit = Integer.parseInt(lieferzeitSpinner.getValue().toString()),
-                        mengenbestand = Integer.parseInt(mengenbestandSpinner.getValue().toString()),
-                        seriennummer = Integer.parseInt(seriennummerTextField.getText());
-                double preis = Double.parseDouble(preisSpinner.getValue().toString());
-                boolean imAngebot = imAngebotCheckBox.isSelected();
 
-                //Neues Produkt wird erstellt und der Liste aller Produkte hinzugefügt
-                if(kategorieComboBox.getSelectedIndex() == 0 || name.isEmpty() || technischeDaten.isEmpty() || (kaufempfehlungComboBox.getSelectedIndex() == 0
-                        && Main.getProduktkatalog().getListe().size() != 0) || jahrgangComboBox.getSelectedIndex() == 0 || lieferzeit == 0 || mengenbestand == 0 || seriennummer == 0 || preis == 0){
-                    JOptionPane.showMessageDialog(null, "Fehler! Eine der angegeben Daten ist fehlerhaft!", "Fehler", JOptionPane.ERROR_MESSAGE);
+                if(jahrgangComboBox.getSelectedIndex() == 0){JOptionPane.showMessageDialog(null, "Fehler: Ungültiger Jahrgang", "Fehler", JOptionPane.ERROR_MESSAGE); return;}
+                if(kategorieComboBox.getSelectedIndex() != 0){
 
-                    //Nun werden alle Eingabefelder wieder auf ihren Standard resetet
-                    if(kategorieComboBox.getSelectedIndex() == 0) kategorieComboBox.setSelectedIndex(0);
-                    if(name.isEmpty()) nameTextField.setText(null);
-                    if(technischeDaten.isEmpty()) technischeDatenTextArea.setText(null);
-                    if(kaufempfehlungComboBox.getSelectedIndex() == 0 && Main.getProduktkatalog().getListe().size() != 0) kaufempfehlungComboBox.setSelectedIndex(0);
-                    if(jahrgangComboBox.getSelectedIndex() == 0) jahrgangComboBox.setSelectedIndex(0);
-                    if(lieferzeit == 0) lieferzeitSpinner.setValue(0);
-                    if(mengenbestand == 0) mengenbestandSpinner.setValue(0);
-                    if(seriennummer == 0) seriennummerTextField.setText(null);
-                    if(preis == 0) preisSpinner.setValue(0);
-                }else{
-                    jahrgang = (int) jahrgangComboBox.getSelectedItem();
+                    //Attribute des neuen Produkts werden hergeleitet
+                    String  kategorie = kategorieComboBox.getSelectedItem().toString(),
+                            name = nameTextField.getText(),
+                            technischeDaten = technischeDatenTextArea.getText();
+                    Produkt kaufempfehlung = Main.getProduktkatalog().sucheProduktNachNamen(kaufempfehlungComboBox.getSelectedItem().toString());
+                    System.out.println(jahrgangComboBox.getSelectedItem().toString());
+                    int     jahrgang = (int) jahrgangComboBox.getSelectedItem(),
+                            lieferzeit = Integer.parseInt(lieferzeitSpinner.getValue().toString()),
+                            mengenbestand = Integer.parseInt(mengenbestandSpinner.getValue().toString()),
+                            seriennummer = Integer.parseInt(seriennummerTextField.getText());
+                    double preis = Double.parseDouble(preisSpinner.getValue().toString());
+                    boolean imAngebot = imAngebotCheckBox.isSelected();
+                    try {
+                        if(kategorie.equalsIgnoreCase("Elektronik")){
+                            Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        } else if (kategorie.equalsIgnoreCase("Küche")) {
+                            Main.getKuecheListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        } else if (kategorie.equalsIgnoreCase("Badezimmer")) {
+                            Main.getBadezimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        }else if (kategorie.equalsIgnoreCase("Schlafzimmer")) {
+                            Main.getSchlafzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        }else if(kategorie.equalsIgnoreCase("Wohnzimmer")){
+                            Main.getWohnzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        }else if(kategorie.equalsIgnoreCase("Sonstiges")){
+                            Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        }
+                        Main.getMainFrame().updateContents();
+                        setVisible(false);
+                        dispose();
+                    } catch (InvalidProductAttributeException ex) {
+                        JOptionPane.showMessageDialog(null, "Fehler: "+ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 
-                    if(kategorie.equalsIgnoreCase("Elektronik")){
-                        Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
-                    } else if (kategorie.equalsIgnoreCase("Küche")) {
-                        Main.getKuecheListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
-                    } else if (kategorie.equalsIgnoreCase("Badezimmer")) {
-                        Main.getBadezimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
-                    }else if (kategorie.equalsIgnoreCase("Schlafzimmer")) {
-                        Main.getSchlafzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
-                    }else if(kategorie.equalsIgnoreCase("Wohnzimmer")){
-                        Main.getWohnzimmerListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
-                    }else if(kategorie.equalsIgnoreCase("Sonstiges")){
-                        Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
+                        if(lieferzeit <= 0) lieferzeitSpinner.setValue(0);
+                        if(mengenbestand <= 0) mengenbestandSpinner.setValue(0);
+                        if(preis <= 0) preisSpinner.setValue(0);
                     }
-                    Main.getMainFrame().updateContents();
-                    setVisible(false);
-                    dispose();
-
+                }else{
+                    JOptionPane.showMessageDialog(null, "Fehler: Ungültige Kategorie", "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
