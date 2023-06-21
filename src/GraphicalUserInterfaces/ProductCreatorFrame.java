@@ -203,21 +203,30 @@ public class ProductCreatorFrame extends JFrame{
         };
     }
 
+    //erlaubt dem Nutzer, ein Bild von seinem lokalen Speicher auszuwählen, welches dann angezeigt wird
+    private static String filePath;
     private ActionListener imageButtonActionListener(){
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Nutzer kann Datei auswählen
                 JFileChooser fileChooser = new JFileChooser();
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION){
+                    // Dateipfad wird bestimmt
                     File selectedFile = fileChooser.getSelectedFile();
-                    String filePath = selectedFile.getAbsolutePath();
-                    
+                    filePath = selectedFile.getAbsolutePath();
+
+                    // ausgewähltes Bild ersetzt bildLabel
                     ImageIcon productImage = new ImageIcon(filePath);
                     bildLabel.setIcon(productImage);
                 }
 
             }
         };
+    }
+
+    public static String getFilePath(){
+        return filePath;
     }
 }

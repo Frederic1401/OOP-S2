@@ -2,6 +2,7 @@ package src.GraphicalUserInterfaces;
 
 import src.Main;
 import src.Products.Produkt;
+import src.GraphicalUserInterfaces.ProductCreatorFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class ProductTemplatePane extends Component {
     private JButton weitereInformationenButton;
     private JPanel bildPanel;
     private JPanel mainPanel;
+    private JLabel produktBildLabel;
 
     public ProductTemplatePane() {
         entfernenButton.addActionListener(new ActionListener() {
@@ -41,6 +43,11 @@ public class ProductTemplatePane extends Component {
                         currentProdukt.getPreis(), currentProdukt.isImAngebot());
             }
         });
+
+        // zeigt das zuvor ausgewählte Bild in der Produktvorschau an
+        String filePath = ProductCreatorFrame.getFilePath();
+        ImageIcon productImage = new ImageIcon(ProductCreatorFrame.getFilePath());
+        produktBildLabel.setIcon(productImage);
     }
 
     public JPanel getMainPanel(){ return mainPanel;}
