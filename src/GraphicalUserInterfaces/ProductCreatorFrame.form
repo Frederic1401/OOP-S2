@@ -120,7 +120,7 @@
           </grid>
         </constraints>
         <properties>
-          <editable value="true"/>
+          <editable value="false"/>
           <text value=""/>
         </properties>
       </component>
