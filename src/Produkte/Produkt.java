@@ -30,7 +30,7 @@ public class Produkt implements Comparable<Produkt>, Serializable {
      * @param seriennummer     Die Seriennummer des Produkts
      * @param kategorie        Die Kategorie des Produkts
      * @param name             Der Name des Produkts
-     * @param beschreibung     Die Beschreibung Daten des Produkts
+     * @param beschreibung     Die Beschreibung des Produkts
      * @param kaufempfehlung   Die Kaufempfehlung für das Produkt
      * @param jahrgang         Das Jahr, in dem das Produkt hergestellt wurde
      * @param lieferzeit       Die Lieferzeit für das Produkt in Tagen

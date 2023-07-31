@@ -9,10 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +41,7 @@ public class MainFrame extends JFrame {
             menuAnsicht_KachelAnsicht, menuAnsicht_BaumAnsicht, menuAnsicht_TabellenAnsicht; //Die JMenuItems des 'menuAnsicht'.
     private ObjectInputStream input; //Der InputStream, zum Speichern des Kataloges.
     private ObjectOutputStream output; //Der OutputStream, zum Auslesen eines Kataloges.
+    private DefaultMutableTreeNode selectedNode;
 
     /**
      * Der Constructor für das reguläre JFrame der gesamten Anwendung.
@@ -179,6 +179,25 @@ public class MainFrame extends JFrame {
         baumPanel.add(tree);
         revalidate();
         repaint();
+
+        // Event Listener wird hinzugefügt, welcher auf Rechtsklick reagiert
+        tree.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    // der selektierte Knoten wird verwendet
+                    TreePath path = tree.getPathForLocation(e.getX(), e.getY());
+                    if (path != null) {
+                        tree.setSelectionPath(path); // Stellt sicher, dass der Knoten ausgewählt ist
+                        //DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+                        selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+
+                        // Menü wird erstellt
+                        JPopupMenu contextMenu = createContextMenu(selectedNode);
+                        contextMenu.show(tree, e.getX(), e.getY());
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -232,7 +251,7 @@ public class MainFrame extends JFrame {
         DefaultTableModel tabelleModel = new DefaultTableModel(produktDaten, spalten){
             public boolean isCellEditable(int row, int column) {return false;}};
         JTable tabelle = new JTable(tabelleModel);
-        //Nun wird die Möglichkeit des Sortierens der Tabelle eingeüfhrt.
+        //Nun wird die Möglichkeit des Sortierens der Tabelle eingeführt.
         TableRowSorter tabellenSortier = new TableRowSorter<>(tabelle.getModel());
         tabelle.setRowSorter(tabellenSortier);
         JScrollPane tabelleScrollPane = new JScrollPane(tabelle);
@@ -329,6 +348,28 @@ public class MainFrame extends JFrame {
                 throw new RuntimeException(ex);
             }
         };
+    }
+
+    private JPopupMenu createContextMenu(DefaultMutableTreeNode node) {
+        JPopupMenu contextMenu = new JPopupMenu();
+
+        JMenuItem editItem = new JMenuItem("Bearbeiten");
+        editItem.addActionListener(e -> {
+            System.out.println("bearbeite");
+        //    if (node.getUserObject() instanceof Produkt) {
+        //        Produkt selectedProdukt = (Produkt) node.getUserObject();
+        //        new ProduktCreatorFrame(selectedProdukt);
+        //    }
+            System.out.println(selectedNode);
+            for(Produkt produkte : Main.getProduktkatalog().getListe()){
+                if (produkte.getSeriennummer() == selectedNode.toString()){
+                    new ProduktCreatorFrame(produkte);
+                }
+            }
+        });
+        contextMenu.add(editItem);
+
+        return contextMenu;
     }
 
 }
