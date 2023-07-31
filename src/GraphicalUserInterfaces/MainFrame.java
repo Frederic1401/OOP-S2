@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
         mainTabbedPane = new JTabbedPane();
         mainTabbedPane.add("Kachel-Ansicht", kachelScrollPane);
         mainTabbedPane.add("Baum-Ansicht", baumScrollPane);
-        mainTabbedPane.add("Tabelle-Ansicht", tabellePanel);
+        mainTabbedPane.add("Tabellen-Ansicht", tabellePanel);
         //Der 'Produkt erzeugen' wird initialisiert und ihm wird ein ActionListener zugewiesen.
         produktErzeugenButton = new JButton("Produkt erzeugen");
         produktErzeugenButton.setSize(100, 50);
