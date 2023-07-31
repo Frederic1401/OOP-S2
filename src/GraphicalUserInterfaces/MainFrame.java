@@ -49,11 +49,12 @@ public class MainFrame extends JFrame {
      */
     public MainFrame(){
         //Zu Beginn werden die Attribute des JFrames definiert.
-        super("Dropsi 3000");
+        super("Dropsi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 720);
         setLocationRelativeTo(null);
         setVisible(true);
+        setIconImage(new ImageIcon("Icon.png").getImage());
         //Es werden die einzelnen JTabs initialisiert und befüllt.
         kachelPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 10, 10));
         kachelScrollPane = new JScrollPane(kachelPanel);

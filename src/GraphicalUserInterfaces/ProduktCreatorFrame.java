@@ -89,6 +89,7 @@ public class ProduktCreatorFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("Icon.png").getImage());
         //Die einzelnen Components des 'mainBildPanel's werden initialisiert.
         bildLabel = new JLabel();
         bildLabel.setBorder(new LineBorder(Color.BLACK, 1));
