@@ -1,9 +1,6 @@
 package src;
 
 import src.GraphicalUserInterfaces.MainFrame;
-import src.Produkte.Kategorien.BadezimmerProdukt;
-import src.Produkte.Kategorien.ElektronikProdukt;
-import src.Produkte.Kategorien.SonstigesProdukt;
 import src.Produkte.Listen.*;
 import src.Produkte.Produktkatalog;
 

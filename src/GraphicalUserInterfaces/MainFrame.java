@@ -374,7 +374,11 @@ public class MainFrame extends JFrame {
         };
     }
 
-    // Wenn in der Baumansicht auf einen Produkteintrag gerechtsklickt wird, öffnet sich ein Kontextmenü, über welches das Produkt bearbeitet oder gelöscht werden kann
+    /**
+     * Wenn in der Baumansicht mit einem Produkteintrag interagiert wird, öffnet sich ein Kontextmenü, über welches das Produkt bearbeitet oder gelöscht werden kann.
+     * @param produkt Das Produkt, das entfernt oder bearbeitet werden soll.
+     * @return Ein JPopupMenu, dass die Möglichkeit bietet ein Produkt zu entfernen oder zu bearbeiten.
+     */
     private JPopupMenu createContextMenu(Produkt produkt) {
         JPopupMenu contextMenu = new JPopupMenu();
 
