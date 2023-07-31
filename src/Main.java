@@ -1,9 +1,21 @@
 package src;
 
 import src.GraphicalUserInterfaces.MainFrame;
+import src.Produkte.Kategorien.BadezimmerProdukt;
+import src.Produkte.Kategorien.ElektronikProdukt;
+import src.Produkte.Kategorien.SonstigesProdukt;
 import src.Produkte.Listen.*;
 import src.Produkte.Produktkatalog;
 
+/**
+ * Package 'src'
+ *
+ * Zweck: Main Klasse der Anwendung; Dient zum Initialisieren der Verwaltungslisten und der Klasse 'MainFrame'. Des Weiteren wird hier der Umfang der 3. Phase getestet.
+ * @author: Maximilian Böhme, Frederic Oetgen
+ * @version: 21.05.2023
+ * Historie: 21.05.2023, Erstellung der Klasse
+ *           16.06.2023, Initialisierung der Klasse 'MainFrame' und entsprechendem Getter
+ */
 public class Main {
 
     private static Produktkatalog produktkatalog;
@@ -16,18 +28,17 @@ public class Main {
     private static MainFrame mainFrame;
 
     public static void main(String[] args) {
+        //Die einzelnen Produkt-Listen werden initialisiert.
         produktkatalog = new Produktkatalog();
-
         elektronikListe = new ElektronikListe();
         kuecheListe = new KuecheListe();
         badezimmerListe = new BadezimmerListe();
         schlafzimmerListe = new SchlafzimmerListe();
         wohnzimmerListe = new WohnzimmerListe();
         sonstigesListe = new SonstigesListe();
-
+        //
         mainFrame = new MainFrame();
     }
-
     public static Produktkatalog getProduktkatalog() {
         return produktkatalog;
     }

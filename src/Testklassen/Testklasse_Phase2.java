@@ -9,10 +9,17 @@ import src.Produkte.Listen.ElektronikListe;
 import src.Produkte.Listen.SonstigesListe;
 import src.Produkte.Produktkatalog;
 
+/**
+ * Package 'src.Testklassen'
+ *
+ * Zweck: Testklasse der zweiten Phase; Hier werden sämtliche Funktionalitäten der Exception Klasse und der Produkt-Kategorie Klassen getestet.
+ * @author: Maximilian Böhme
+ * @version: 01.06.2023
+ * Historie: 01.06.2023, Erstellung der Klasse
+ */
 public class Testklasse_Phase2 {
 
     static Produktkatalog produktkatalog;
-
     static BadezimmerListe badezimmerListe;
     static ElektronikListe elektronikListe;
     static SonstigesListe sonstigesListe;

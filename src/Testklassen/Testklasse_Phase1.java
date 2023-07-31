@@ -4,10 +4,10 @@ import src.Produkte.Produkt;
 import src.Produkte.Produktkatalog;
 
 /**
- * Package 'code.Products'
+ * Package 'src.Testklassen'
  *
  * Zweck: Testklasse der ersten Phase; Hier werden sämtliche Funktionalitäten der Klassen Produkt und Produktkatalog getestet.
- * @author: Frederic Oetgen
+ * @author: Maximilian Böhme
  * @version: 21.05.2023
  * Historie: 21.05.2023, Erstellung der Klasse
  */
@@ -59,7 +59,7 @@ public class Testklasse_Phase1 {
 
         //Entfernen eines Produktes und Ausgabe des aktuellen Produktkataloges
         System.out.println("Nun wird der Stuhl aus dem Katalog entfernt und der Katalog wird wieder ausgegeben...");
-        produktkatalog.removeProdukt(stuhl);
+        produktkatalog.liste.remove(stuhl);
         System.out.println(produktkatalog.toString());
 
         System.out.println(); //Leerzeile Zwecks Übersichtlichkeit generieren

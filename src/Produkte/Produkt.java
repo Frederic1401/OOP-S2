@@ -3,9 +3,9 @@ package src.Produkte;
 import java.io.Serializable;
 
 /**
- * Package 'code.Products'
+ * Package 'src.Produkte'
  *
- * Zweck: Fachklasse eines Produktes
+ * Zweck: Fachklasse eines Produktes, Zwecks Vererbung.
  * @author: Benjamin Adam
  * @version: 21.05.2023
  * Historie: 21.05.2023, Erstellung der Fachklasse
@@ -27,6 +27,7 @@ public class Produkt implements Comparable<Produkt>, Serializable {
     /**
      * Konstruktor zur Initialisierung eines Produktobjekts mit den angegebenen Parametern.
      *
+     * @param seriennummer     Die Seriennummer des Produkts
      * @param kategorie        Die Kategorie des Produkts
      * @param name             Der Name des Produkts
      * @param beschreibung     Die Beschreibung Daten des Produkts
@@ -81,15 +82,10 @@ public class Produkt implements Comparable<Produkt>, Serializable {
      * <p>0: wenn der Preis des anderen Produktes gleich groß ist.
      */
     public int compareTo(Produkt anderes) {
-        if(anderes.getPreis() < this.preis){
-            return 1;
-        }
-        if(anderes.getPreis() > this.preis){
-            return -1;
-        }
-        return 0;
+        return Double.compare(this.preis, anderes.getPreis());
     }
 
+    //Sämtliche Getter der Attribute werden implementiert
     public String getSeriennummer() {return seriennummer;}
     public String getKategorie() {return kategorie;}
     public String getName() {return name;}
@@ -100,7 +96,7 @@ public class Produkt implements Comparable<Produkt>, Serializable {
     public int getMengenbestand() {return mengenbestand;}
     public double getPreis() {return preis;}
     public boolean isImAngebot() {return imAngebot;}
-
+    //Sämtliche Setter der Attribute werden implementiert
     public void setSeriennummer(String seriennummer) {this.seriennummer = seriennummer;}
     public void setKategorie(String kategorie){this.kategorie = kategorie;}
     public void setName(String name) {this.name = name;}

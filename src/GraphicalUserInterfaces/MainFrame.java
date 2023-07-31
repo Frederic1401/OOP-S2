@@ -6,6 +6,7 @@ import src.Produkte.Produkt;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
@@ -16,22 +17,35 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Package 'src.GraphicalUserInterfaces'
+ *
+ * Zweck: JFrame, das als GUI für die Anwendung dient.
+ * @author: Frederic Oetgen, Hanno Schulz
+ * @version: 07.07.2023
+ * Historie: 16.06.2023, Erstellung der Klasse
+ *           07.07.2023, Erstellung der verschiedenen Ansichten via JTabbedPane
+ *
+ */
 public class MainFrame extends JFrame {
 
-    private JPanel mainContentPanel;
-    private JPanel tabPanel;
-    private JPanel kachelPanel, baumPanel, tabellePanel;
-    private JPanel buttonPanel;
-    private JTabbedPane mainTabbedPane;
-    private JScrollPane kachelScrollPane, baumScrollPane;
-    private JButton produktErzeugenButton;
-    private JMenuBar menuBar;
-    private JMenu menuDatei, menuAnsicht;
-    private JMenuItem menuDatei_NeuesProdukt, menuDatei_Speichern, menuDatei_Laden,
-            menuAnsicht_KachelAnsicht, menuAnsicht_BaumAnsicht, menuAnsicht_TabellenAnsicht;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private JPanel mainContentPanel, //Das Main Content Panel des des JFrames.
+            tabPanel, //Das JPanel, indem sich das JTabbedPane befindet.
+            kachelPanel, baumPanel, tabellenPanel, //DIe einzelnen JPanels der entsprechenden Tabs.
+            buttonPanel; //Das JPanel, indem sich der JButton befindet.
+    private JTabbedPane mainTabbedPane; //Das JTabbedPane des JFrames.
+    private JScrollPane kachelScrollPane, baumScrollPane; //Die JScrollPanes der einzelnen Tabs.
+    private JButton produktErzeugenButton; //Der Button, zum Aufrufen des 'ProduktCreatorFrame'.
+    private JMenuBar menuBar; //Die JMenuBar des JFrames.
+    private JMenu menuDatei, menuAnsicht; //Die JMenus der JMenuBar.
+    private JMenuItem menuDatei_NeuesProdukt, menuDatei_Speichern, menuDatei_Laden, //Die JMenuItems des 'menuDatei'.
+            menuAnsicht_KachelAnsicht, menuAnsicht_BaumAnsicht, menuAnsicht_TabellenAnsicht; //Die JMenuItems des 'menuAnsicht'.
+    private ObjectInputStream input; //Der InputStream, zum Speichern des Kataloges.
+    private ObjectOutputStream output; //Der OutputStream, zum Auslesen eines Kataloges.
 
+    /**
+     * Der Constructor für das reguläre JFrame der gesamten Anwendung.
+     */
     public MainFrame(){
         //Zu Beginn werden die Attribute des JFrames definiert.
         super("Dropsi 3000");
@@ -47,13 +61,13 @@ public class MainFrame extends JFrame {
         baumScrollPane = new JScrollPane(baumPanel);
         baumScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         baumAnsichtGenerieren();
-        tabellePanel = new JPanel();
+        tabellenPanel = new JPanel();
         tabellenAnsichtGenerieren();
         //Das JTabbedPane wird initialisiert und mit entsprechend JTabs ausgestattet.
         mainTabbedPane = new JTabbedPane();
         mainTabbedPane.add("Kachel-Ansicht", kachelScrollPane);
         mainTabbedPane.add("Baum-Ansicht", baumScrollPane);
-        mainTabbedPane.add("Tabelle-Ansicht", tabellePanel);
+        mainTabbedPane.add("Tabellen-Ansicht", tabellenPanel);
         //Der 'Produkt erzeugen' wird initialisiert und ihm wird ein ActionListener zugewiesen.
         produktErzeugenButton = new JButton("Produkt erzeugen");
         produktErzeugenButton.setSize(100, 50);
@@ -172,7 +186,7 @@ public class MainFrame extends JFrame {
      */
     public void tabellenAnsichtGenerieren() {
         //Der 'Tabellen-Ansicht'-Tab wird zunächst geleert, die Gesamtübersicht der Produkte wird aufgerufen und die Struktur der Tabelle wird erzeugt.
-        tabellePanel.removeAll();
+        tabellenPanel.removeAll();
         List<Produkt> produktliste = Main.getProduktkatalog().getListe();
         Object[] spalten = {"Seriennummer", "Kategorie", "Name", "Beschreibung", "Kaufempfehlung", "Jahrgang", "Lieferzeit", "Mengenbestand", "Preis", "Im Angebot?"};
         Object[][] produktDaten = new Object[produktliste.size()][spalten.length];
@@ -214,19 +228,23 @@ public class MainFrame extends JFrame {
                 }
             }
         }
-        //Abschließend wird ein DefaultTableModel initialisiert, um das Editieren der Tabelle zu deaktivieren, umso Fehlern vorzubeugen.
-        //Des Weiteren wird die Größe der Tabelle angepasst.
+        //Es wird ein DefaultTableModel initialisiert und die Möglichkeit die Tabelle zu editieren wird deaktivieren, umso Fehlern vorzubeugen.
         DefaultTableModel tabelleModel = new DefaultTableModel(produktDaten, spalten){
             public boolean isCellEditable(int row, int column) {return false;}};
         JTable tabelle = new JTable(tabelleModel);
+        //Nun wird die Möglichkeit des Sortierens der Tabelle eingeüfhrt.
+        TableRowSorter tabellenSortier = new TableRowSorter<>(tabelle.getModel());
+        tabelle.setRowSorter(tabellenSortier);
         JScrollPane tabelleScrollPane = new JScrollPane(tabelle);
+        //Es wird die Größe der Tabelle angepasst.
         tabelleScrollPane.setPreferredSize(getSize());
-        tabellePanel.add(tabelleScrollPane, BorderLayout.CENTER);
+        tabellenPanel.add(tabelleScrollPane, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
 
     /**
+     * Diese Methode erzeugt für ein Produkt ein Ast und entsprechende Unteräste.
      * @param currentProdukt Das Produkt, für das ein Ast und jeweilige Unteräste erstellt werden sollen.
      * @param kategorie Der Kategorie-Ast, dem das Produkt zuzuweisen ist.
      */
@@ -244,6 +262,7 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Es werden die Inhalte des Produktkataloges gespeichert.
      * @return Ein ActionListener, der dafür sorgt, dass der gesamte Produktkatalog als "katalog.dat" abgespeichert wird.
      */
     private ActionListener menuSpeicherActionListener(){
@@ -261,6 +280,7 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Es werden die Inhalte eines bereits gespeicherten Produktkataloges geladen.
      * @return Ein ActionListener, der eine zuvor gespeicherte "katalog.dat"-Datei einlesen und die Inhalte in sämtliche Produkt-Listen einfügen kann.
      */
     private ActionListener menuLadenActionListener(){
