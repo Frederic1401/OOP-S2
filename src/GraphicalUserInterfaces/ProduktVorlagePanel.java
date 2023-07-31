@@ -69,16 +69,23 @@ public class ProduktVorlagePanel extends JPanel {
      */
     private ActionListener entfernenButtonActionListener(Produkt currentProdukt) {
         return e -> {
-            //Das Produkt wird entfernt.
-            Main.getProduktkatalog().produktEntfernen(currentProdukt);
-            //Sämtliche Ansichten werden aktualisiert.
-            Main.getMainFrame().kachelAnsichtGenerieren();
-            Main.getMainFrame().baumAnsichtGenerieren();
-            Main.getMainFrame().tabellenAnsichtGenerieren();
-            //Dem Nutzer wird das Entfernen des Produkts bestätigt.
-            JOptionPane.showMessageDialog(null,
-                    "Das Produkt '"+currentProdukt.getName()+"' mit der Seriennummer: "+currentProdukt.getSeriennummer()+" wurde erfolgreich entfernt!",
-                    "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
+            if (JOptionPane.showConfirmDialog(null,
+                    "Sind Sie sicher, dass Sie das Produkt entfernen möchten?", "Produkt entfernen",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                //Das Produkt wird entfernt.
+                Main.getProduktkatalog().produktEntfernen(currentProdukt);
+
+                //Sämtliche Ansichten werden aktualisiert.
+                Main.getMainFrame().kachelAnsichtGenerieren();
+                Main.getMainFrame().baumAnsichtGenerieren();
+                Main.getMainFrame().tabellenAnsichtGenerieren();
+
+                // Bestätigungsnachricht
+                JOptionPane.showMessageDialog(null,
+                        "Das Produkt '"+currentProdukt.getName()+"' mit der Seriennummer: "+currentProdukt.getSeriennummer()+" wurde erfolgreich entfernt!",
+                        "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
+            }
         };
     }
 }

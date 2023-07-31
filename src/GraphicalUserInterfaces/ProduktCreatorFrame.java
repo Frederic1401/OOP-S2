@@ -31,7 +31,7 @@ public class ProduktCreatorFrame extends JFrame {
     private JTextField nameTextField, seriennummerTextField; //Die JTextFields, die dem 'eingabePanel' zugewiesen werden.
     private JSpinner mengenbestandSpinner, lieferzeitSpinner, preisSpinner; //Die JSpinner, die dem 'eingabePanel' zugewiesen werden.
     private JTextArea beschreibungTextArea; //Die JTextArea, die dem 'beschreibungPanel' zugewiesen werden.
-    private JButton bildHochladenButton, speichernButton, resetButton, abbrechenButton; //Die JButtons, die dem 'mainBildPanel' und dem 'buttonPanel' zugewiesen werden.
+    private JButton bildHochladenButton, speichernButton, resetButton, abbrechenButton, entfernenButton; //Die JButtons, die dem 'mainBildPanel' und dem 'buttonPanel' zugewiesen werden.
     private JCheckBox angebotCheckBox; //Die JCheckBox, die dem 'eingabePanel' zugewiesen werden.
 
     /**
@@ -120,6 +120,9 @@ public class ProduktCreatorFrame extends JFrame {
         beschreibungLabel = new JLabel("Technische Daten:");
         beschreibungTextArea = new JTextArea();
         //Der 'Abbrechen', 'Speichern' und 'Reset' JButton werden initialisiert und ihnen werden ActionListener zugewiesen.
+        entfernenButton = new JButton("Entfernen");
+        entfernenButton.setSize(100, 50);
+        entfernenButton.addActionListener(entfernenButtonActionListener(currentProdukt));
         abbrechenButton = new JButton("Abbrechen");
         abbrechenButton.setSize(100, 50);
         abbrechenButton.addActionListener(abbrechenButtonActionListener());
@@ -159,6 +162,7 @@ public class ProduktCreatorFrame extends JFrame {
         beschreibungPanel.add(beschreibungTextArea, BorderLayout.CENTER);
         //Das 'buttonPanel' wird initialisiert und die entsprechenden Components werden ihm zugewiesen.
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 40, 20));
+        buttonPanel.add(entfernenButton);
         buttonPanel.add(resetButton);
         buttonPanel.add(abbrechenButton);
         buttonPanel.add(speichernButton);
@@ -295,6 +299,31 @@ public class ProduktCreatorFrame extends JFrame {
                     JOptionPane.showMessageDialog(null, "Fehler beim Laden des Bildes.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        };
+    }
+
+    private ActionListener entfernenButtonActionListener(Produkt currentProdukt){
+        return e -> {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Sind Sie sicher, dass Sie das Produkt entfernen möchten?", "Produkt entfernen",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                //Das Produkt wird entfernt.
+                Main.getProduktkatalog().produktEntfernen(currentProdukt);
+
+                //Sämtliche Ansichten werden aktualisiert.
+                Main.getMainFrame().kachelAnsichtGenerieren();
+                Main.getMainFrame().baumAnsichtGenerieren();
+                Main.getMainFrame().tabellenAnsichtGenerieren();
+
+                // Bestätigungsnachricht
+                JOptionPane.showMessageDialog(null,
+                        "Das Produkt '"+currentProdukt.getName()+"' mit der Seriennummer: "+currentProdukt.getSeriennummer()+" wurde erfolgreich entfernt!",
+                        "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            // Schließt das Fenster
+            dispose();
         };
     }
 
