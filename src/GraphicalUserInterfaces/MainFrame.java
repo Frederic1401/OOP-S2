@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -96,7 +97,7 @@ public class MainFrame extends JFrame {
         menuDatei_NeuesProdukt.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
         menuDatei_NeuesProdukt.addActionListener(e -> new ProduktCreatorFrame());
         menuDatei_Speichern.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-        menuDatei_Speichern.addActionListener(menuSpeicherActionListener());
+        menuDatei_Speichern.addActionListener(menuSpeichernActionListener());
         menuDatei_Laden.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
         menuDatei_Laden.addActionListener(menuLadenActionListener());
         //Den Elementen aus dem Ansicht-Menu werden Tastenkombinationen und ActionListener zugewiesen.
@@ -126,7 +127,7 @@ public class MainFrame extends JFrame {
     public void kachelAnsichtGenerieren() {
         //Der 'Kachel-Ansicht'-Tab wird zunächst geleert und die Gesamtübersicht der Produkte wird aufgerufen.
         kachelPanel.removeAll();
-        //Es wird für jedes Produkt ein JPanel basierend auf ProductTemplatePane mit Seriennummer und Name erstellt.
+        //Es wird für jedes Produkt ein JPanel basierend auf ProduktTemplatePane mit Seriennummer und Name erstellt.
         for(Produkt produkte : Main.getProduktkatalog().getListe()){
             kachelPanel.add(new ProduktVorlagePanel(produkte));
         }
@@ -284,7 +285,7 @@ public class MainFrame extends JFrame {
      * Es werden die Inhalte des Produktkataloges gespeichert.
      * @return Ein ActionListener, der dafür sorgt, dass der gesamte Produktkatalog als "katalog.dat" abgespeichert wird.
      */
-    private ActionListener menuSpeicherActionListener(){
+    private ActionListener menuSpeichernActionListener(){
         return e -> {
             try {
                 output = new ObjectOutputStream(new FileOutputStream("katalog.dat"));
@@ -293,7 +294,7 @@ public class MainFrame extends JFrame {
                 output.writeObject(produkte);
                 JOptionPane.showMessageDialog(null, "Das Speichern war erfolgreich!", "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(null, "Das Speichern war nicht möglich!", "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         };
     }
@@ -345,7 +346,7 @@ public class MainFrame extends JFrame {
                 Main.getMainFrame().tabellenAnsichtGenerieren();
                 JOptionPane.showMessageDialog(null, "Das Laden des Produktkatalogs war erfolgreich!", "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(null, "Das Laden des Katalogs war nicht möglich!", "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         };
     }

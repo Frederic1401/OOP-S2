@@ -6,6 +6,7 @@ import src.Produkte.Kategorien.SchlafzimmerProdukt;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -18,8 +19,6 @@ import java.util.List;
  *           07.07.2023, Universelle Methode zum Löschen und Erstellung der HashMap
  */
 public class Produktkatalog extends Verwaltungsliste<Produkt>{
-
-    public HashMap<Produkt, ImageIcon> produktBilderHashMap = new HashMap<>(); //HashMap, in der die jeweiligen Bilder der Produkte für das GUI gespeichert werden.
 
     /**
      * Diese Methode soll in der Form nicht verwendet werden. Anstelle sollen die anderen Klassen, die aus Verwaltungsliste erben, Produkte generieren.
@@ -39,7 +38,8 @@ public class Produktkatalog extends Verwaltungsliste<Produkt>{
         return null;
     }
     /**
-     * @param produkt Das Produkt, das aus sämtlichen Listen entfernt werden soll.
+     * Diese Methode entfernt ein Produkt aus sämtlichen Produktlisten.
+     * @param produkt Das Produkt, das entfernt werden soll.
      */
     public void produktEntfernen(Produkt produkt){
         liste.remove(produkt);
@@ -50,9 +50,4 @@ public class Produktkatalog extends Verwaltungsliste<Produkt>{
         if(Main.getWohnzimmerListe().getListe().contains(produkt)){Main.getWohnzimmerListe().getListe().remove(produkt);}
         if(Main.getSonstigesListe().getListe().contains(produkt)){Main.getSonstigesListe().getListe().remove(produkt);}
     }
-
-    /**
-     * @return HashMap, in der die jeweiligen Bilder der Produkte für das GUI gespeichert wurden.
-     */
-    public HashMap<Produkt, ImageIcon> getProduktBilderHashMap(){return produktBilderHashMap;}
 }

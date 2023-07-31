@@ -13,9 +13,9 @@ import src.Produkte.Produktkatalog;
  */
 public class Testklasse_Phase1 {
 
-    static Produktkatalog produktkatalog;
+    private Produktkatalog produktkatalog;
 
-    public static void main(String[] args) {
+    public Testklasse_Phase1() {
         System.out.println("Der Testlauf der 1. Phase wird gestartet...");
 
         produktkatalog = new Produktkatalog();
