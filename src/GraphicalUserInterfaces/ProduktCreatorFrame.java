@@ -38,7 +38,7 @@ public class ProduktCreatorFrame extends JFrame {
      * Der reguläre Constructor, um ein neues Produkt zu erstellen.
      */
     public ProduktCreatorFrame(){
-        super("Produkt-Erstellen");
+        super("Produkt Konfigurieren");
         //Es werden die einzelnen JLabels, JPanels etc. über die Methode initialisiert.
         //Da hier ein 'ProductCreatorFrame' dazu genutzt wird, ein neues Produkt zu erstellen, beträgt das übergebene Produkt null.
         erstelleJFrameInhalte(null);
