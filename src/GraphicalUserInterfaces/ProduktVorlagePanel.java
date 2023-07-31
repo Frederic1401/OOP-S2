@@ -75,7 +75,7 @@ public class ProduktVorlagePanel extends JPanel {
             Main.getMainFrame().kachelAnsichtGenerieren();
             Main.getMainFrame().baumAnsichtGenerieren();
             Main.getMainFrame().tabellenAnsichtGenerieren();
-            //Dem Nutzer wird das Entfernen des Buttons bestätigt.
+            //Dem Nutzer wird das Entfernen des Produkts bestätigt.
             JOptionPane.showMessageDialog(null,
                     "Das Produkt '"+currentProdukt.getName()+"' mit der Seriennummer: "+currentProdukt.getSeriennummer()+" wurde erfolgreich entfernt!",
                     "Mitteilung", JOptionPane.INFORMATION_MESSAGE);

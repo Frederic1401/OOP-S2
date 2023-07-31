@@ -205,7 +205,8 @@ public class ProduktCreatorFrame extends JFrame {
         //Die Inhalte der 'empfehlungComboBox' werden erstellt in der Reihenfolge des Produktkataloges.
         empfehlungComboBox.addItem("-bitte Angeben-");
         for(Produkt produkte : Main.getProduktkatalog().getListe()) {
-            empfehlungComboBox.addItem(produkte.getSeriennummer()+" | "+produkte.getName());}
+            empfehlungComboBox.addItem(produkte.getSeriennummer()+" | "+produkte.getName());
+        }
     }
 
     /**

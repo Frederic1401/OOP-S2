@@ -191,9 +191,16 @@ public class MainFrame extends JFrame {
                         //DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
                         selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 
-                        // Kontextmenü wird erstellt
-                        JPopupMenu contextMenu = createContextMenu(selectedNode);
-                        contextMenu.show(tree, e.getX(), e.getY());
+                        // ausgehend von selectedNode wird das ausgewählte Produkt gesucht
+                        for(Produkt produkte : Main.getProduktkatalog().getListe()){
+                            if (produkte.getSeriennummer().equals(selectedNode.toString())) {
+                                // Kontextmenü wird aufgerufen
+                                JPopupMenu contextMenu = createContextMenu(produkte);
+                                contextMenu.show(tree, e.getX(), e.getY());
+                            }
+                        }
+
+
                     }
                 }
             }
@@ -251,6 +258,22 @@ public class MainFrame extends JFrame {
         DefaultTableModel tabelleModel = new DefaultTableModel(produktDaten, spalten){
             public boolean isCellEditable(int row, int column) {return false;}};
         JTable tabelle = new JTable(tabelleModel);
+
+        // Event Listener wird hinzugefügt, welcher auf Rechtsklick reagiert
+        tabelle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int row = tabelle.rowAtPoint(e.getPoint());
+                int col = tabelle.columnAtPoint(e.getPoint());
+                if (row >= 0 && col >= 0 && e.getButton() == MouseEvent.BUTTON3) {
+                    // Kontextmenü wird aufgerufen
+                    JPopupMenu contextMenu = createContextMenu(produktliste.get(row));
+                    contextMenu.show(tabelle, e.getX(), e.getY());
+                }
+            }
+        });
+
+
         //Nun wird die Möglichkeit des Sortierens der Tabelle eingeführt.
         TableRowSorter tabellenSortier = new TableRowSorter<>(tabelle.getModel());
         tabelle.setRowSorter(tabellenSortier);
@@ -350,41 +373,31 @@ public class MainFrame extends JFrame {
         };
     }
 
-    // Wenn auf einen Produkteintrag in der Baumansicht gerechtsklickt wird, öffnet sich ein Kontextmenü über welches das Produkt bearbeitet oder gelöscht werden kann
-    private JPopupMenu createContextMenu(DefaultMutableTreeNode node) {
+    // Wenn in der Baumansicht auf einen Produkteintrag gerechtsklickt wird, öffnet sich ein Kontextmenü, über welches das Produkt bearbeitet oder gelöscht werden kann
+    private JPopupMenu createContextMenu(Produkt produkt) {
         JPopupMenu contextMenu = new JPopupMenu();
+
         // bearbeiten
         JMenuItem editItem = new JMenuItem("Bearbeiten");
         editItem.addActionListener(e -> {
-            // iteriert alle Produkte durch und schaut, welches mit dem ausgewählten Eintrag übereinstimmt
-            for(Produkt produkte : Main.getProduktkatalog().getListe()){
-                if (produkte.getSeriennummer().equals(selectedNode.toString())) {
-                    new ProduktCreatorFrame(produkte);
-                }
-            }
+            new ProduktCreatorFrame(produkt);
         });
         // Option wird dem Kontextmenü zugefügt
         contextMenu.add(editItem);
+
         // löschen
         JMenuItem deleteItem = new JMenuItem("Löschen");
         deleteItem.addActionListener(e -> {
-            System.out.println(selectedNode);
-            // iteriert alle Produkte durch und schaut, welches mit dem ausgewählten Eintrag übereinstimmt
-            List<Produkt> kopierteListe = List.copyOf(Main.getProduktkatalog().getListe());
-            for(Produkt produkte : kopierteListe){
-                if (produkte.getSeriennummer().equals(selectedNode.toString())) {
-                    // das Produkt wird entfernt.
-                    Main.getProduktkatalog().produktEntfernen(produkte);
-                    //Sämtliche Ansichten werden aktualisiert.
-                    Main.getMainFrame().kachelAnsichtGenerieren();
-                    Main.getMainFrame().baumAnsichtGenerieren();
-                    Main.getMainFrame().tabellenAnsichtGenerieren();
-                    //Dem Nutzer wird das Entfernen des Buttons bestätigt.
-                    JOptionPane.showMessageDialog(null,
-                            "Das Produkt '"+produkte.getName()+"' mit der Seriennummer: "+produkte.getSeriennummer()+" wurde erfolgreich entfernt!",
-                            "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
+            // das Produkt wird entfernt
+            Main.getProduktkatalog().produktEntfernen(produkt);
+            // Sämtliche Ansichten werden aktualisiert
+            Main.getMainFrame().kachelAnsichtGenerieren();
+            Main.getMainFrame().baumAnsichtGenerieren();
+            Main.getMainFrame().tabellenAnsichtGenerieren();
+            //Dem Nutzer wird das Entfernen des Produkts bestätigt.
+            JOptionPane.showMessageDialog(null,
+                    "Das Produkt '"+produkt.getName()+"' mit der Seriennummer: "+produkt.getSeriennummer()+" wurde erfolgreich entfernt!",
+                    "Mitteilung", JOptionPane.INFORMATION_MESSAGE);
         });
         // option wird dem Kontextmenü zugefügt
         contextMenu.add(deleteItem);
