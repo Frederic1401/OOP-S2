@@ -1,5 +1,6 @@
 package src.Produkte;
 
+import javax.swing.*;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,8 @@ public class Produkt implements Comparable<Produkt>, Serializable {
     private String seriennummer;
     private double preis;
     private boolean imAngebot;
+
+    private ImageIcon bild;
 
     /**
      * Konstruktor zur Initialisierung eines Produktobjekts mit den angegebenen Parametern.
@@ -95,6 +98,7 @@ public class Produkt implements Comparable<Produkt>, Serializable {
     public int getLieferzeit() {return lieferzeit;}
     public int getMengenbestand() {return mengenbestand;}
     public double getPreis() {return preis;}
+    public ImageIcon getBild() {return bild;}
     public boolean isImAngebot() {return imAngebot;}
     //Sämtliche Setter der Attribute werden implementiert
     public void setSeriennummer(String seriennummer) {this.seriennummer = seriennummer;}
@@ -106,6 +110,7 @@ public class Produkt implements Comparable<Produkt>, Serializable {
     public void setLieferzeit(int lieferzeit) {this.lieferzeit = lieferzeit;}
     public void setMengenbestand(int mengenbestand) {this.mengenbestand = mengenbestand;}
     public void setPreis(double preis) {this.preis = preis;}
+    public void setBild(ImageIcon bild) {this.bild = bild;}
     public void setImAngebot(boolean imAngebot) {this.imAngebot = imAngebot;}
 }
 

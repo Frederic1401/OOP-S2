@@ -57,7 +57,7 @@ public class ProduktCreatorFrame extends JFrame {
         //Die JComboBoxen werden mit Inhalten ausgestattet.
         erstelleComboBoxInhalte();
         //Die einzelnen Attribut-Eingabefelder erhalten Werte entsprechend dem übergebenen Produkt.
-        bildLabel.setIcon(Main.getProduktkatalog().getProduktBilderHashMap().get(produkt));
+        bildLabel.setIcon(produkt.getBild());
         kategorieComboBox.setSelectedIndex(umwandelnVonKategorieZuID(produkt.getKategorie()));
         nameTextField.setText(produkt.getName());
         seriennummerTextField.setText(produkt.getSeriennummer());
@@ -317,8 +317,14 @@ public class ProduktCreatorFrame extends JFrame {
                 //Es wird ein Produkt der entsprechenden Kategorie versucht zu erstellen.
                 try {
                     Produkt produkt = null;
-                    //Sofern ein Produkt überarbeitet wird, wird das alte Produkt entfernt.
-                    if(altesProdukt != null){Main.getProduktkatalog().produktEntfernen(altesProdukt);}
+                    String altSeriennummer = "",
+                            altKategorie = "";
+                    //Sofern ein Produkt überarbeitet wird, wird das alte Produkt entfernt und die alte Seriennummer beibehalten.
+                    if(altesProdukt != null){
+                        altSeriennummer = altesProdukt.getSeriennummer();
+                        altKategorie = altesProdukt.getKategorie();
+                        Main.getProduktkatalog().produktEntfernen(altesProdukt);
+                    }
                     //Entsprechend der Kategorie
                     if(kategorie.equalsIgnoreCase("Elektronik")){
                         produkt = Main.getElektronikListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
@@ -333,8 +339,10 @@ public class ProduktCreatorFrame extends JFrame {
                     }else if(kategorie.equalsIgnoreCase("Sonstiges")){
                         produkt = Main.getSonstigesListe().produktErzeugen(name, technischeDaten, kaufempfehlung, jahrgang, lieferzeit, mengenbestand, preis, imAngebot);
                     }
+                    //Falls die Kategorie beim überarbeiteten Produkt gleich bleibt wird die alte Seriennummer beibehalten
+                    if(altesProdukt != null && kategorie.equalsIgnoreCase(altKategorie)){produkt.setSeriennummer(altSeriennummer);}
                     //Das angegebene Bild wird dem Produkt zugeordnet.
-                    Main.getProduktkatalog().getProduktBilderHashMap().put(produkt, (ImageIcon) bildLabel.getIcon());
+                    produkt.setBild((ImageIcon) bildLabel.getIcon());
                     //Sämtliche Ansichten werden aktualisiert.
                     Main.getMainFrame().kachelAnsichtGenerieren();
                     Main.getMainFrame().baumAnsichtGenerieren();

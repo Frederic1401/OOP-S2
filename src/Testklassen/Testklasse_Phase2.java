@@ -19,12 +19,12 @@ import src.Produkte.Produktkatalog;
  */
 public class Testklasse_Phase2 {
 
-    static Produktkatalog produktkatalog;
-    static BadezimmerListe badezimmerListe;
-    static ElektronikListe elektronikListe;
-    static SonstigesListe sonstigesListe;
+    private Produktkatalog produktkatalog;
+    private BadezimmerListe badezimmerListe;
+    private ElektronikListe elektronikListe;
+    private SonstigesListe sonstigesListe;
 
-    public static void main(String[] args) {
+    public Testklasse_Phase2() {
         produktkatalog = new Produktkatalog();
 
         badezimmerListe = new BadezimmerListe();

@@ -36,7 +36,7 @@ public class Main {
         schlafzimmerListe = new SchlafzimmerListe();
         wohnzimmerListe = new WohnzimmerListe();
         sonstigesListe = new SonstigesListe();
-        //
+        //Die GUI der Anwendung wird initialisiert.
         mainFrame = new MainFrame();
     }
     public static Produktkatalog getProduktkatalog() {

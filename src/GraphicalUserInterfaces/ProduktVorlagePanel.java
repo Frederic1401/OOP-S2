@@ -35,7 +35,7 @@ public class ProduktVorlagePanel extends JPanel {
         //Die einzelnen JLabels und ihre Inhalte werden initialisiert und angepasst.
         produktSeriennummerLabel = new JLabel(currentProdukt.getSeriennummer()+" | "+currentProdukt.getName());
         bildLabel = new JLabel();
-        bildLabel.setIcon(Main.getProduktkatalog().getProduktBilderHashMap().get(currentProdukt));
+        bildLabel.setIcon(currentProdukt.getBild());
         bildLabel.setBorder(new LineBorder(Color.GRAY, 1, true));
         buttonPanel = new JPanel();
         entfernenButton = new JButton("Entfernen");
