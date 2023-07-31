@@ -31,7 +31,7 @@ public class ProduktCreatorFrame extends JFrame {
     private JTextField nameTextField, seriennummerTextField; //Die JTextFields, die dem 'eingabePanel' zugewiesen werden.
     private JSpinner mengenbestandSpinner, lieferzeitSpinner, preisSpinner; //Die JSpinner, die dem 'eingabePanel' zugewiesen werden.
     private JTextArea beschreibungTextArea; //Die JTextArea, die dem 'beschreibungPanel' zugewiesen werden.
-    private JButton bildHochladenButton, speichernButton, resetButton; //Die JButtons, die dem 'mainBildPanel' und dem 'buttonPanel' zugewiesen werden.
+    private JButton bildHochladenButton, speichernButton, resetButton, abbrechenButton; //Die JButtons, die dem 'mainBildPanel' und dem 'buttonPanel' zugewiesen werden.
     private JCheckBox angebotCheckBox; //Die JCheckBox, die dem 'eingabePanel' zugewiesen werden.
 
     /**
@@ -119,7 +119,10 @@ public class ProduktCreatorFrame extends JFrame {
         //Die JTextArea des 'beschreibungPanel's wird erstellt.
         beschreibungLabel = new JLabel("Technische Daten:");
         beschreibungTextArea = new JTextArea();
-        //Der 'Speichern' und 'Reset' JButton werden initialisiert und ihnen werden ActionListener zugewiesen.
+        //Der 'Abbrechen', 'Speichern' und 'Reset' JButton werden initialisiert und ihnen werden ActionListener zugewiesen.
+        abbrechenButton = new JButton("Abbrechen");
+        abbrechenButton.setSize(100, 50);
+        abbrechenButton.addActionListener(abbrechenButtonActionListener());
         speichernButton = new JButton("Speichern");
         speichernButton.setSize(100, 50);
         speichernButton.addActionListener(speichernButtonActionListener(currentProdukt));
@@ -156,8 +159,9 @@ public class ProduktCreatorFrame extends JFrame {
         beschreibungPanel.add(beschreibungTextArea, BorderLayout.CENTER);
         //Das 'buttonPanel' wird initialisiert und die entsprechenden Components werden ihm zugewiesen.
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 40, 20));
-        buttonPanel.add(speichernButton);
         buttonPanel.add(resetButton);
+        buttonPanel.add(abbrechenButton);
+        buttonPanel.add(speichernButton);
         //Das 'mainEingabePanel' wird initialisiert und die entsprechenden Components werden ihm zugewiesen.
         mainEingabePanel = new JPanel(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -294,8 +298,15 @@ public class ProduktCreatorFrame extends JFrame {
         };
     }
 
+    private ActionListener abbrechenButtonActionListener(){
+        return e -> {
+            dispose();
+        };
+    }
+
     /**
      * Es wird ein neues Produkt erstellt und gespeichert. Sofern ein Produkt bearbeitet wird, wird das ursprüngliche entfernt und das neue Produkt gespeichert.
+     *
      * @param altesProdukt, sofern kein Produkt überarbeitet wird, soll dieser Parameter null betragen.
      * @return Der ActionListener für den 'speichernButton'.
      */

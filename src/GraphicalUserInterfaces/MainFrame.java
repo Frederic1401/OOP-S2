@@ -405,8 +405,4 @@ public class MainFrame extends JFrame {
 
         return contextMenu;
     }
-
 }
-
-
-
